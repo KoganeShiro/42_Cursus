@@ -1,11 +1,5 @@
-# 42_Cursus
+# 42_Piscine
 
-Here are all my project of my 42 cursus (with what i did during the piscine)
+The concept of a "piscine" in the context of 42 comes from the French word for "swimming pool," and it is used metaphorically to describe an immersive and challenging coding experience.
 
- - [[Piscine]]
- - [[Libft]]
- - [[Born2Beroot]]
- - [[Get_Next_Line]]
- - [[Fract_ol]]
- - [[Push_Swap]]
- - [[Pipex]]
+In the 42 coding school, a piscine is a period of intense learning of 26 days of coding where participants work on various programming projects and challenges. It's designed to be a rigorous and immersive experience, allowing individuals to develop their coding skills in a short amount of time
