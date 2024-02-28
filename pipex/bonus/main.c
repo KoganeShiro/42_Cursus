@@ -10,23 +10,21 @@
 /*																			  */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc == 5)
+	if (argc >= 5)
 	{
-		ft_bzero(&pipex, sizeof(t_pipex));
-		free(pipex.cmd_path);
-		pipex.cmd_path = NULL;
-		free(pipex.cmd2_path);
-		pipex.cmd2_path = NULL;
-		pipex.flag_cmd1 = 0;
-		pipex.flag_cmd2 = 0;
-		check_args(argv, &pipex);
-		get_path(&pipex, argv, envp);
+		bzero(&pipex, sizeof(t_pipex));
+		pipex.nb_of_cmd = argc - 3;
+		pipex.cmd = 2;
+		pipex.pipe_fd = dup(0);
+		check_args(argc, argv, &pipex);
+		get_path(&pipex, envp);
+		ft_exec(&pipex, argv, envp);
 		ft_cleanup(&pipex);
 	}
 	else
@@ -38,29 +36,16 @@ void	ft_cleanup(t_pipex *pipex)
 {
 	close(pipex->infile_fd);
 	close(pipex->outfile_fd);
-	if (pipex->tmp_path)
-	{
-		free(pipex->tmp_path);
-		pipex->tmp_path = NULL;
-	}
-	if (pipex->tmp_path2)
-	{
-		free(pipex->tmp_path2);
-		pipex->tmp_path2 = NULL;
-	}
+	close(pipex->pipe_fd);
 	if (pipex->cmd_path)
 	{
 		free(pipex->cmd_path);
 		pipex->cmd_path = NULL;
 	}
-	if (pipex->cmd2_path)
-	{
-		free(pipex->cmd2_path);
-		pipex->cmd2_path = NULL;
-	}
 	free_tab(pipex->all_paths);
-	free_tab(pipex->cmd_args1);
-	free_tab(pipex->cmd_args2);
+	pipex->all_paths = NULL;
+	free_tab(pipex->cmd_args);
+	pipex->cmd_args = NULL;
 }
 
 void	free_tab(char **tab)

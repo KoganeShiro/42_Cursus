@@ -10,19 +10,16 @@
 /*																			  */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-/*
-CHANGE MY GNL so i can remove my gnl_utils function
-
-rewrite my exec_cmd so the parameters can be the "in" and the "out"
-*/
-
-void	exec_cmd(t_pipex *pipex, char **envp)
+void	ft_execve_first(t_pipex *pipex, char **argv, char **envp)
 {
 	int		fd[2];
 	pid_t	pid;
+	int		i = 0;
 
+	printf("first cmd %s\n", argv[pipex->cmd]); //DEBUGGING
+	pipex->cmd_args = ft_split((const char *)argv[pipex->cmd], " ");
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -37,69 +34,102 @@ void	exec_cmd(t_pipex *pipex, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
-		exec_cmd1(pipex, envp, fd);
-	exec_cmd2(pipex, envp, fd);
+	{
+		dup2(pipex->infile_fd, STDIN_FILENO);
+		close(pipex->infile_fd);
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+		while (pipex->all_paths[i] != NULL)
+		{
+			free(pipex->cmd_path);
+			pipex->cmd_path = ft_strjoin(pipex->all_paths[i], pipex->cmd_args[0]);
+			execve(pipex->cmd_path, pipex->cmd_args, envp);
+			i++;
+		}
+		perror("execve (cmd command not found)");
+		ft_cleanup(pipex);
+		exit(EXIT_FAILURE);
+	}
+	close(fd[1]);
+	close(pipex->pipe_fd);
+	pipex->pipe_fd = fd[0];
+	waitpid(pid, NULL, 0);
 }
 
-//change the "in" and the "out"
-
-void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2])
+void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)
 {
+	int		fd[2];
+	pid_t	pid;
+
+	pipex->cmd_args = ft_split((const char *)argv[pipex->cmd], " ");
+	if (pipe(fd) == -1)
+	{
+		perror("pipe");
+		ft_cleanup(pipex);
+		exit(EXIT_FAILURE);
+	}
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		ft_cleanup(pipex);
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+		ft_execve(pipex, envp, fd);
+	close(fd[1]);
+	close(pipex->pipe_fd);
+	pipex->pipe_fd = fd[0];
+	waitpid(pid, NULL, 0);
+}
+
+void	ft_execve(t_pipex *pipex, char **envp, int fd[2])
+{
+	int		i;
+
+	i = 0;
 	close(fd[0]);
-	dup2(pipex->infile_fd, STDIN_FILENO);
-	close(pipex->infile_fd);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
-	if (pipex->flag_cmd1 == 1)
-		execve(pipex->cmd_path, pipex->cmd_args1, envp);
-	else
-		perror("execve (cmd1 command not found)");
+	dup2(pipex->pipe_fd, STDIN_FILENO);
+	close(pipex->pipe_fd);
+	while (pipex->all_paths[i] != NULL)
+	{
+		free(pipex->cmd_path);
+		pipex->cmd_path = ft_strjoin(pipex->all_paths[i], pipex->cmd_args[0]);
+		execve(pipex->cmd_path, pipex->cmd_args, envp);
+		i++;
+	}
+	perror("execve (cmd command not found)");
 	ft_cleanup(pipex);
 	exit(EXIT_FAILURE);
 }
 
-//change the "in" and the "out"
-
-void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2])
+void	ft_execve_last(t_pipex *pipex, char **argv, char **envp)
 {
-	pid_t	pid2;
+	pid_t	pid;
+	int		i;
 
-	pid2 = fork();
-	if (pid2 == -1)
+	i = 0;
+	pipex->cmd_args = ft_split((const char *)argv[pipex->cmd], " ");
+	pid = fork();
+	if (pid == 0)
 	{
-		perror("fork (bis)");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
-	}
-	if (pid2 == 0)
-	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(pipex->pipe_fd, STDIN_FILENO);
+		close(pipex->pipe_fd);
 		dup2(pipex->outfile_fd, STDOUT_FILENO);
 		close(pipex->outfile_fd);
-		if (pipex->flag_cmd2 == 1)
-			execve(pipex->cmd2_path, pipex->cmd_args2, envp);
+		while (pipex->all_paths[i] != NULL)
+		{
+			free(pipex->cmd_path);
+			pipex->cmd_path = ft_strjoin(pipex->all_paths[i], pipex->cmd_args[0]);
+			execve(pipex->cmd_path, pipex->cmd_args, envp);
+			i++;
+		}
 		perror("execve (cmd2 command not found)");
 		ft_cleanup(pipex);
 		exit(EXIT_FAILURE);
 	}
-	close(fd[0]);
-	waitpid(pid2, NULL, 0);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	int		i;
-	char	*src;
-
-	src = (char *)s;
-	i = 0;
-	while (n != 0)
-	{
-		src[i] = 0;
-		i++;
-		n--;
-	}
-	return ;
+	waitpid(pid, NULL, 0);
 }

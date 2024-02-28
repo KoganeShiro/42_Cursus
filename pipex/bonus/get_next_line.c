@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 char	*find_next_line(char *buffer)
 {
@@ -76,13 +76,13 @@ char	*read_file(int fd, char *buffer)
 	tmp_buff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (tmp_buff == NULL)
 		return (NULL);
-	while (byte_read > 0 && !ft_strchr(tmp_buff, '\n'))
+	while (byte_read > 0 && !ft_strchr_gnl(tmp_buff, '\n'))
 	{
 		byte_read = read(fd, tmp_buff, BUFFER_SIZE);
 		if (byte_read == -1)
 			return (free(tmp_buff), free(buffer), NULL);
 		tmp_buff[byte_read] = '\0';
-		buffer = ft_strjoin(buffer, tmp_buff);
+		buffer = ft_strjoin_gnl(buffer, tmp_buff);
 	}
 	free(tmp_buff);
 	return (buffer);

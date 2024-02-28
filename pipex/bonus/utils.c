@@ -10,7 +10,23 @@
 /*																			  */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	int		i;
+	char	*src;
+
+	src = (char *)s;
+	i = 0;
+	while (n != 0)
+	{
+		src[i] = 0;
+		i++;
+		n--;
+	}
+	return ;
+}
 
 int	ft_strncmp(char *s1, char *s2, int n)
 {
@@ -23,35 +39,6 @@ int	ft_strncmp(char *s1, char *s2, int n)
 		n--;
 	}
 	return (s1[i] - s2[i]);
-}
-
-void	*ft_calloc(int str_len, int size)
-{
-	char			*str;
-	unsigned int	n;
-	unsigned int	i;
-
-	n = str_len * size;
-	str = malloc(n);
-	if (str == NULL)
-		return (0);
-	i = 0;
-	while (i < n)
-	{
-		str[i] = 0;
-		i++;
-	}
-	return (str);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
 
 char	*ft_strchr(const char *s, int c)

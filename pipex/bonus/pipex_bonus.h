@@ -24,46 +24,45 @@
 # define ERROR_MSG "You should execute it like that:\n\t \
 `./pipex infile 'cmd1' 'cmd2' outfile`\n\n"
 
+# define BUFFER_SIZE 10
+
 typedef struct s_pipex
 {
 	int		infile_fd;
 	int		outfile_fd;
-	int		error_flag;
+	int		pipe_fd;
 	int		here_doc;
 	char	**all_paths;
-	char	**cmd_args1;
-	char	**cmd_args2;
+	char	**cmd_args;
 	char	*cmd_path;
-	char	*cmd2_path;
-	char	*tmp_path;
-	char	*tmp_path2;
-	int		cmd1_exist;
-	int		cmd2_exist;
+	int		cmd;
+	int		nb_of_cmd;
 }	t_pipex;
 
-/* PIPEX */
-void	exec_cmd(t_pipex *pipex, char **envp);
-void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2]);
-void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2]);
+/* MAIN */
 int		main(int argc, char **argv, char **envp);
 void	ft_cleanup(t_pipex *pipex);
-
-/* ERROR_HANDLING */
-void	check_args(char **argv, t_pipex *pipex);
-void	get_path(t_pipex *pipe, char **argv, char **envp);
-void	is_cmd_exist(t_pipex *pipex);
-void	ft_check_cmd(t_pipex *pipex);
 void	free_tab(char **tab);
 
+/* PIPEX */
+void	ft_execve_first(t_pipex *pipex, char **argv, char **envp);
+void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
+void	ft_execve(t_pipex *pipex, char **envp, int fd[2]);
+void	ft_execve_last(t_pipex *pipex, char **argv, char **envp);
+
+/* ERROR_HANDLING */
+void	check_args(int argc, char **argv, t_pipex *pipex);
+void	get_path(t_pipex *pipex, char **envp);
+void	ft_exec(t_pipex *pipex, char **argv, char **envp);
+
 /* UTILS */
+void	ft_bzero(void *s, size_t n);
 int		ft_strncmp(char *s1, char *s2, int n);
-void	*ft_calloc(int str_len, int size);
-int		ft_strlen(char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s, char *add);
 
 /* SPLIT */
-void	ft_bzero(void *s, size_t n);
+char	*ft_strdup(char *str);
 int		count_word(char const *s, const char c);
 char	*next_word(const char *str, int start, int end);
 void	fill_result(char **result, const char *s, const char *sep);
@@ -74,5 +73,10 @@ char	*find_next_line(char *buffer);
 char	*extract_line(char *buffer);
 char	*read_file(int fd, char *buffer);
 char	*get_next_line(int fd);
+
+char	*ft_strjoin_gnl(char *buffer, char *tmp);
+int		ft_strchr_gnl(char *buffer, int new_line_ptr);
+int		ft_strlen(char *buffer);
+void	*ft_calloc(int str_len, int size);
 
 #endif

@@ -10,70 +10,50 @@
 /*																			  */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	check_args(char **argv, t_pipex *pipex)
+void	check_args(int argc, char **argv, t_pipex *pipex)
 {
-	pipex->error_flag = 0;
-	pipex->outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (pipex->outfile_fd < 0)
 	{
-		perror(argv[4]);
-		pipex->error_flag = 1;
+		perror(argv[argc - 1]);
+		exit(EXIT_FAILURE);
 	}
 	pipex->infile_fd = open(argv[1], O_RDONLY);
 	if (pipex->infile_fd < 0)
 	{
 		perror(argv[1]);
-		pipex->error_flag = 1;
+		exit(EXIT_FAILURE);
 	}
 }
 
-void	get_path(t_pipex *pipex, char **argv, char **envp)
+void	get_path(t_pipex *pipex, char **envp)
 {
 	int		i;
 
-	pipex->cmd_args1 = ft_split((const char *)argv[2], " ");
-	pipex->cmd_args2 = ft_split((const char *)argv[3], " ");
 	i = 0;
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH=/", 5) == 0)
 		{
 			pipex->all_paths = ft_split(envp[i] + 5, ":");
-			is_cmd_exist(pipex);
-			exec_cmd(pipex, envp);
 			break ;
 		}
 		i++;
 	}
 }
 
-void	is_cmd_exist(t_pipex *pipex)
+void	ft_exec(t_pipex *pipex, char **argv, char **envp)
 {
-	int		i;
-
-	i = 0;
-	while (pipex->all_paths[i] != NULL)
+	ft_execve_first(pipex, argv, envp);
+	pipex->nb_of_cmd--;
+	pipex->cmd--;
+	while (pipex->nb_of_cmd > 0)
 	{
-		free(pipex->tmp_path);
-		free(pipex->tmp_path2);
-		pipex->tmp_path = ft_strjoin(pipex->all_paths[i], pipex->cmd_args1[0]);
-		pipex->tmp_path2 = ft_strjoin(pipex->all_paths[i], pipex->cmd_args2[0]);
-		if (access(pipex->tmp_path, X_OK) != -1)
-		{
-			free(pipex->cmd_path);
-			pipex->cmd_path = ft_strdup(pipex->tmp_path);
-			pipex->flag_cmd1 = 1;
-		}
-		if (access(pipex->tmp_path2, X_OK) != -1)
-		{
-			free(pipex->cmd2_path);
-			pipex->cmd2_path = ft_strdup(pipex->tmp_path2);
-			pipex->flag_cmd2 = 1;
-		}
-		if (pipex->all_paths[i + 1] == NULL)
-			break ;
-		i++;
+		ft_exec_cmd(pipex, argv, envp);
+		pipex->nb_of_cmd--;
+		pipex->cmd--;
 	}
+	ft_execve_last(pipex, argv, envp);
 }

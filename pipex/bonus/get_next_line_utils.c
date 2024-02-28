@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-char	*ft_strjoin(char *buffer, char *tmp)
+char	*ft_strjoin_gnl(char *buffer, char *tmp)
 {
 	char	*line;
 	int		i;
@@ -38,7 +38,7 @@ char	*ft_strjoin(char *buffer, char *tmp)
 	return (line);
 }
 
-int	ft_strchr(char *buffer, int new_line_ptr)
+int	ft_strchr_gnl(char *buffer, int new_line_ptr)
 {
 	int	i;
 
@@ -64,4 +64,23 @@ int	ft_strlen(char *buffer)
 	while (buffer[i] != '\0')
 		i++;
 	return (i);
+}
+
+void	*ft_calloc(int str_len, int size)
+{
+	char			*str;
+	unsigned int	n;
+	unsigned int	i;
+
+	n = str_len * size;
+	str = malloc(n);
+	if (str == NULL)
+		return (0);
+	i = 0;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+	return (str);
 }
