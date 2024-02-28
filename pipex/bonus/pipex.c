@@ -12,6 +12,12 @@
 
 #include "pipex.h"
 
+/*
+CHANGE MY GNL so i can remove my gnl_utils function
+
+rewrite my exec_cmd so the parameters can be the "in" and the "out"
+*/
+
 void	exec_cmd(t_pipex *pipex, char **envp)
 {
 	int		fd[2];
@@ -32,10 +38,10 @@ void	exec_cmd(t_pipex *pipex, char **envp)
 	}
 	if (pid == 0)
 		exec_cmd1(pipex, envp, fd);
-	close(fd[1]);
 	exec_cmd2(pipex, envp, fd);
-	waitpid(pid, NULL, 0);
 }
+
+//change the "in" and the "out"
 
 void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2])
 {
@@ -51,6 +57,8 @@ void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2])
 	ft_cleanup(pipex);
 	exit(EXIT_FAILURE);
 }
+
+//change the "in" and the "out"
 
 void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2])
 {

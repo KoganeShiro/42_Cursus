@@ -10,8 +10,8 @@
 /*																			  */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -29,6 +29,7 @@ typedef struct s_pipex
 	int		infile_fd;
 	int		outfile_fd;
 	int		error_flag;
+	int		here_doc;
 	char	**all_paths;
 	char	**cmd_args1;
 	char	**cmd_args2;
@@ -36,26 +37,23 @@ typedef struct s_pipex
 	char	*cmd2_path;
 	char	*tmp_path;
 	char	*tmp_path2;
-	int		flag_cmd1;
-	int		flag_cmd2;
+	int		cmd1_exist;
+	int		cmd2_exist;
 }	t_pipex;
-
-/* MAIN */
-int		main(int argc, char **argv, char **envp);
-void	ft_cleanup(t_pipex *pipex);
-void	free_tab(char **tab);
 
 /* PIPEX */
 void	exec_cmd(t_pipex *pipex, char **envp);
 void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2]);
 void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2]);
-void	ft_bzero(void *s, size_t n);
+int		main(int argc, char **argv, char **envp);
+void	ft_cleanup(t_pipex *pipex);
 
 /* ERROR_HANDLING */
 void	check_args(char **argv, t_pipex *pipex);
 void	get_path(t_pipex *pipe, char **argv, char **envp);
 void	is_cmd_exist(t_pipex *pipex);
 void	ft_check_cmd(t_pipex *pipex);
+void	free_tab(char **tab);
 
 /* UTILS */
 int		ft_strncmp(char *s1, char *s2, int n);
@@ -65,10 +63,16 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s, char *add);
 
 /* SPLIT */
-char	*ft_strdup(char *str);
+void	ft_bzero(void *s, size_t n);
 int		count_word(char const *s, const char c);
 char	*next_word(const char *str, int start, int end);
 void	fill_result(char **result, const char *s, const char *sep);
 char	**ft_split(char const *s, const char *sep);
+
+/* GNL */
+char	*find_next_line(char *buffer);
+char	*extract_line(char *buffer);
+char	*read_file(int fd, char *buffer);
+char	*get_next_line(int fd);
 
 #endif
