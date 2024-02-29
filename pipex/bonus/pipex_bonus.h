@@ -31,12 +31,14 @@ typedef struct s_pipex
 	int		infile_fd;
 	int		outfile_fd;
 	int		pipe_fd;
-	int		here_doc;
+	int		heredoc_fd;
+	char	*delimiter;
 	char	**all_paths;
 	char	**cmd_args;
 	char	*cmd_path;
 	int		cmd;
 	int		nb_of_cmd;
+	int		is_first_cmd;
 }	t_pipex;
 
 /* MAIN */
@@ -44,9 +46,13 @@ int		main(int argc, char **argv, char **envp);
 void	ft_cleanup(t_pipex *pipex);
 void	free_tab(char **tab);
 
+/* HERE_DOC */
+void	ft_here_doc(t_pipex *pipex, int argc, char **argv);
+
 /* PIPEX */
-void	ft_execve_first(t_pipex *pipex, char **argv, char **envp);
-void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
+void	ft_exec_first(t_pipex *pipex, char **argv, char **envp);
+void	ft_execve_first(t_pipex *pipex, char **envp, int fd[2]);
+
 void	ft_execve(t_pipex *pipex, char **envp, int fd[2]);
 void	ft_execve_last(t_pipex *pipex, char **argv, char **envp);
 
@@ -54,6 +60,7 @@ void	ft_execve_last(t_pipex *pipex, char **argv, char **envp);
 void	check_args(int argc, char **argv, t_pipex *pipex);
 void	get_path(t_pipex *pipex, char **envp);
 void	ft_exec(t_pipex *pipex, char **argv, char **envp);
+void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
 
 /* UTILS */
 void	ft_bzero(void *s, size_t n);

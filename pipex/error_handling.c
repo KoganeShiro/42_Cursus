@@ -14,18 +14,17 @@
 
 void	check_args(char **argv, t_pipex *pipex)
 {
-	pipex->error_flag = 0;
 	pipex->outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (pipex->outfile_fd < 0)
 	{
 		perror(argv[4]);
-		pipex->error_flag = 1;
+		exit(EXIT_FAILURE);
 	}
 	pipex->infile_fd = open(argv[1], O_RDONLY);
 	if (pipex->infile_fd < 0)
 	{
 		perror(argv[1]);
-		pipex->error_flag = 1;
+		exit(EXIT_FAILURE);
 	}
 }
 

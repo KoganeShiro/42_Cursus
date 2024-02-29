@@ -28,7 +28,6 @@ typedef struct s_pipex
 {
 	int		infile_fd;
 	int		outfile_fd;
-	int		error_flag;
 	char	**all_paths;
 	char	**cmd_args1;
 	char	**cmd_args2;
@@ -55,7 +54,6 @@ void	ft_bzero(void *s, size_t n);
 void	check_args(char **argv, t_pipex *pipex);
 void	get_path(t_pipex *pipe, char **argv, char **envp);
 void	is_cmd_exist(t_pipex *pipex);
-void	ft_check_cmd(t_pipex *pipex);
 
 /* UTILS */
 int		ft_strncmp(char *s1, char *s2, int n);

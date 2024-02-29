@@ -19,12 +19,19 @@ int	main(int argc, char **argv, char **envp)
 	if (argc >= 5)
 	{
 		bzero(&pipex, sizeof(t_pipex));
-		pipex.nb_of_cmd = argc - 3;
-		pipex.cmd = 2;
-		pipex.pipe_fd = dup(0);
-		check_args(argc, argv, &pipex);
-		get_path(&pipex, envp);
-		ft_exec(&pipex, argv, envp);
+		if (ft_strncmp("here_doc", argv[1], 8) == 0)
+		{
+			//ft_here_doc(&pipex, argc, argv);
+			get_path(&pipex, envp);
+			//exec_here_doc(&pipex, argv, envp);
+		}
+		else
+		{
+			pipex.nb_of_cmd = argc - 3;
+			check_args(argc, argv, &pipex);
+			get_path(&pipex, envp);
+			ft_exec(&pipex, argv, envp);
+		}
 		ft_cleanup(&pipex);
 	}
 	else
@@ -37,15 +44,14 @@ void	ft_cleanup(t_pipex *pipex)
 	close(pipex->infile_fd);
 	close(pipex->outfile_fd);
 	close(pipex->pipe_fd);
+	close(pipex->heredoc_fd);
 	if (pipex->cmd_path)
 	{
 		free(pipex->cmd_path);
 		pipex->cmd_path = NULL;
 	}
 	free_tab(pipex->all_paths);
-	pipex->all_paths = NULL;
 	free_tab(pipex->cmd_args);
-	pipex->cmd_args = NULL;
 }
 
 void	free_tab(char **tab)
