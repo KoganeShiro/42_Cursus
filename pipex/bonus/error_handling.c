@@ -14,8 +14,7 @@
 
 void	check_args(int argc, char **argv, t_pipex *pipex)
 {
-	pipex->cmd = 2;
-	pipex->pipe_fd = dup(0);
+	pipex->cmd_count = 2;
 	pipex->is_first_cmd = 1;
 	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY
 			| O_CREAT | O_TRUNC, 0644);
@@ -24,8 +23,35 @@ void	check_args(int argc, char **argv, t_pipex *pipex)
 		perror(argv[argc - 1]);
 		exit(EXIT_FAILURE);
 	}
-	pipex->infile_fd = open(argv[1], O_RDONLY);
-	if (pipex->infile_fd < 0)
+	pipex->in_fd = open(argv[1], O_RDONLY);
+	if (pipex->in_fd < 0)
+	{
+		perror(argv[1]);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	ft_here_doc(t_pipex *pipex, int argc, char **argv)
+{
+	pipex->limiter = argv[2];
+	pipex->nb_of_cmd = argc - 4;
+	pipex->cmd_count = 3;
+	pipex->is_first_cmd = 1;
+	if (pipex->limiter == NULL || pipex->limiter[0] == '\0')
+	{
+		pipex->limiter = ft_strdup("\n");
+		pipex->limiter_flag = 1;
+	}
+	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY
+			| O_CREAT | O_APPEND, 0644);
+	if (pipex->outfile_fd < 0)
+	{
+		perror(argv[argc - 1]);
+		exit(EXIT_FAILURE);
+	}
+	wrin_heredoc(pipex, NULL);
+	pipex->in_fd = open("/tmp/heredoc", O_RDONLY, 0644);
+	if (pipex->in_fd < 0)
 	{
 		perror(argv[1]);
 		exit(EXIT_FAILURE);
@@ -46,47 +72,4 @@ void	get_path(t_pipex *pipex, char **envp)
 		}
 		i++;
 	}
-}
-
-void	ft_exec(t_pipex *pipex, char **argv, char **envp)
-{
-	ft_exec_first(pipex, argv, envp);
-	pipex->nb_of_cmd--;
-	pipex->cmd++;
-	free_tab(pipex->cmd_args);
-	while (pipex->nb_of_cmd > 1)
-	{
-		ft_exec_cmd(pipex, argv, envp);
-		pipex->nb_of_cmd--;
-		pipex->cmd++;
-		free_tab(pipex->cmd_args);
-	}
-	ft_execve_last(pipex, argv, envp);
-}
-
-void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)
-{
-	int		fd[2];
-	pid_t	pid;
-
-	pipex->cmd_args = ft_split((const char *)argv[pipex->cmd], " ");
-	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
-	}
-	if (pid == 0)
-		ft_execve(pipex, envp, fd);
-	close(fd[1]);
-	close(pipex->pipe_fd);
-	pipex->pipe_fd = fd[0];
-	waitpid(pid, NULL, 0);
 }

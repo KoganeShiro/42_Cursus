@@ -57,7 +57,7 @@ char	*ft_strjoin(char *buffer, char *tmp)
 	return (line);
 }
 
-int	ft_strchr(char *buffer, int new_line_ptr)
+int	ft_strchr(char *buffer, char new_line_ptr)
 {
 	int	i;
 

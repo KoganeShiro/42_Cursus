@@ -27,7 +27,7 @@ char	*read_file(int fd, char *buffer);
 char	*extract_line(char *buffer);
 char	*find_next_line(char *buffer);
 char	*ft_strjoin(char *buffer, char *tmp);
-int		ft_strchr(char *buffer, int new_line_ptr);
+int		ft_strchr(char *buffer, char new_line_ptr);
 int		ft_strlen(char *buffer);
 void	*ft_calloc(int str_len, int size);
 

@@ -88,7 +88,7 @@ char	*read_file(int fd, char *buffer)
 	return (buffer);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, t_pipex *pipex)
 {
 	char			*line;
 	static char		*buffer = NULL;
@@ -105,5 +105,14 @@ char	*get_next_line(int fd)
 	}
 	line = extract_line(buffer);
 	buffer = find_next_line(buffer);
+	if ((ft_strlen(pipex->limiter) + 1 == ft_strlen(line)
+				&& ft_strncmp(line, pipex->limiter,
+					ft_strlen(pipex->limiter)) == 0))
+	{
+		free(buffer);
+		buffer = NULL;
+		return (line);
+	}
+	(void)pipex;
 	return (line);
 }

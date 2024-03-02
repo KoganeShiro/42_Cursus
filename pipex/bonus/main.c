@@ -19,11 +19,11 @@ int	main(int argc, char **argv, char **envp)
 	if (argc >= 5)
 	{
 		bzero(&pipex, sizeof(t_pipex));
-		if (ft_strncmp("here_doc", argv[1], 8) == 0)
+		if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 		{
-			//ft_here_doc(&pipex, argc, argv);
+			ft_here_doc(&pipex, argc, argv);
 			get_path(&pipex, envp);
-			//exec_here_doc(&pipex, argv, envp);
+			exec_heredoc(&pipex, argv, envp);
 		}
 		else
 		{
@@ -41,10 +41,8 @@ int	main(int argc, char **argv, char **envp)
 
 void	ft_cleanup(t_pipex *pipex)
 {
-	close(pipex->infile_fd);
+	close(pipex->in_fd);
 	close(pipex->outfile_fd);
-	close(pipex->pipe_fd);
-	close(pipex->heredoc_fd);
 	if (pipex->cmd_path)
 	{
 		free(pipex->cmd_path);

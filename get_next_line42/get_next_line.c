@@ -105,6 +105,12 @@ char	*get_next_line(int fd)
 	}
 	line = extract_line(buffer);
 	buffer = find_next_line(buffer);
+	if (!line && !buffer)
+	{
+		free(buffer);
+		buffer = NULL;
+		return (NULL);
+	}
 	return (line);
 }
 
@@ -120,12 +126,14 @@ int	main()
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		printf("Error\n");
-	while (line != NULL line[0] != '\0')
-	{
-		line = get_next_line(fd);
-		printf("%s", line);
-		free(line);
-	}
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+
 	close(fd);
 	return 0;
 }
