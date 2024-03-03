@@ -5,7 +5,7 @@ The school is known for its unique and innovative approach to education, with a 
 
 ## Here are all my projects of my 42 cursus
 
- - Piscine
+ - https://github.com/KoganeShiro/42_Cursus/tree/main/42Piscine
  - Libft
  - Born2Beroot
  - Get_Next_Line
