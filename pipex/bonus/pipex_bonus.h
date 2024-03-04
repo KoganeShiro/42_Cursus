@@ -24,7 +24,7 @@
 # define ERROR_MSG "You should execute it like that:\n\t \
 `./pipex infile 'cmd1' 'cmd2' outfile`\n\n"
 
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 1000
 
 typedef struct s_pipex
 {
@@ -38,6 +38,7 @@ typedef struct s_pipex
 	int		cmd_count;
 	int		nb_of_cmd;
 	int		is_first_cmd;
+	int		cmd_is_path;
 	pid_t	pid;
 }	t_pipex;
 
@@ -48,20 +49,22 @@ void	free_tab(char **tab);
 
 /* HERE_DOC */
 void	exec_heredoc(t_pipex *pipex, char **argv, char **envp);
-void	_exec_(t_pipex *pipex, char **argv, char **envp);
+void	_exec_(t_pipex *pipex, char **envp);
 void	_execve_(t_pipex *pipex, char **envp, int fd[2]);
 void	wrin_heredoc(t_pipex *pipex, char *line);
 
 /* ERROR_HANDLING */
 void	check_args(int argc, char **argv, t_pipex *pipex);
 void	ft_here_doc(t_pipex *pipex, int argc, char **argv);
-void	get_path(t_pipex *pipex, char **envp);
+void	get_path(t_pipex *pipex, char **argv, char **envp);
+void	check_cmd(t_pipex *pipex, char **argv);
 
 /* PIPEX */
 void	ft_exec(t_pipex *pipex, char **argv, char **envp);
+void	_cmd_is_path(t_pipex *pipex, char **envp);
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
 void	ft_execve(t_pipex *pipex, char **envp, int fd[2]);
-void	ft_execve_last(t_pipex *pipex, char **argv, char **envp);
+void	ft_execve_last(t_pipex *pipex, char **envp);
 
 /* UTILS */
 void	ft_bzero(void *s, size_t n);
@@ -81,7 +84,9 @@ char	*find_next_line(char *buffer);
 char	*extract_line(char *buffer);
 char	*read_file(int fd, char *buffer);
 char	*get_next_line(int fd, t_pipex *pipex);
+char	*_condition_(t_pipex *pipex, char *buffer, char *line);
 
+/* GNL UTILS */
 char	*ft_strjoin_gnl(char *buffer, char *tmp);
 int		ft_strchr_gnl(char *buffer, int new_line_ptr);
 int		ft_strlen(char *buffer);

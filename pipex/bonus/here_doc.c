@@ -14,7 +14,10 @@
 
 void	exec_heredoc(t_pipex *pipex, char **argv, char **envp)
 {
-	_exec_(pipex, argv, envp);
+	int	i;
+
+	i = 0;
+	_exec_(pipex, envp);
 	pipex->nb_of_cmd--;
 	pipex->cmd_count++;
 	free_tab(pipex->cmd_args);
@@ -25,15 +28,22 @@ void	exec_heredoc(t_pipex *pipex, char **argv, char **envp)
 		pipex->cmd_count++;
 		free_tab(pipex->cmd_args);
 	}
-	ft_execve_last(pipex, argv, envp);
+	check_cmd(pipex, argv);
+	if (pipex->cmd_is_path == 0)
+		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
+	ft_execve_last(pipex, envp);
+	while (i < pipex->cmd_count)
+	{
+		wait(NULL);
+		i++;
+	}
 }
 
-void	_exec_(t_pipex *pipex, char **argv, char **envp)
+void	_exec_(t_pipex *pipex, char **envp)
 {
 	int		fd[2];
 	pid_t	pid;
 
-	pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -54,7 +64,6 @@ void	_exec_(t_pipex *pipex, char **argv, char **envp)
 	close(fd[1]);
 	close(pipex->in_fd);
 	pipex->in_fd = fd[0];
-	waitpid(pid, NULL, 0);
 }
 
 void	_execve_(t_pipex *pipex, char **envp, int fd[2])
@@ -85,7 +94,7 @@ int	_condition(t_pipex *pipex, char *line)
 	if (pipex->limiter_flag == 1)
 	{
 		if (ft_strlen(pipex->limiter) == ft_strlen(line)
-				&& ft_strncmp(line, pipex->limiter, 1) == 0)
+			&& ft_strncmp(line, pipex->limiter, 1) == 0)
 		{
 			return (1);
 		}
@@ -93,8 +102,8 @@ int	_condition(t_pipex *pipex, char *line)
 	else
 	{
 		if (ft_strlen(pipex->limiter) + 1 == ft_strlen(line)
-				&& ft_strncmp(line, pipex->limiter,
-					ft_strlen(pipex->limiter)) == 0)
+			&& ft_strncmp(line, pipex->limiter,
+				ft_strlen(pipex->limiter)) == 0)
 		{
 			return (1);
 		}
@@ -123,5 +132,6 @@ void	wrin_heredoc(t_pipex *pipex, char *line)
 		free(line);
 	}
 	free(line);
+	line = NULL;
 	close(heredoc_fd);
 }

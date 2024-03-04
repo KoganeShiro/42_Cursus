@@ -35,8 +35,8 @@ typedef struct s_pipex
 	char	*cmd2_path;
 	char	*tmp_path;
 	char	*tmp_path2;
-	int		flag_cmd1;
-	int		flag_cmd2;
+	int		cmd_is_path;
+	int		cmd2_is_path;
 }	t_pipex;
 
 /* MAIN */
@@ -45,6 +45,7 @@ void	ft_cleanup(t_pipex *pipex);
 void	free_tab(char **tab);
 
 /* PIPEX */
+void	get_path(t_pipex *pipe, char **argv, char **envp);
 void	exec_cmd(t_pipex *pipex, char **envp);
 void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2]);
 void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2]);
@@ -52,8 +53,10 @@ void	ft_bzero(void *s, size_t n);
 
 /* ERROR_HANDLING */
 void	check_args(char **argv, t_pipex *pipex);
-void	get_path(t_pipex *pipe, char **argv, char **envp);
+void	check_cmd1(t_pipex *pipex, char **argv);
+void	check_cmd2(t_pipex *pipex, char **argv);
 void	is_cmd_exist(t_pipex *pipex);
+void	is_cmd2_exist(t_pipex *pipex);
 
 /* UTILS */
 int		ft_strncmp(char *s1, char *s2, int n);

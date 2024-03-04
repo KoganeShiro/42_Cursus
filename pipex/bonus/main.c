@@ -22,14 +22,14 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 		{
 			ft_here_doc(&pipex, argc, argv);
-			get_path(&pipex, envp);
+			get_path(&pipex, argv, envp);
 			exec_heredoc(&pipex, argv, envp);
 		}
 		else
 		{
 			pipex.nb_of_cmd = argc - 3;
 			check_args(argc, argv, &pipex);
-			get_path(&pipex, envp);
+			get_path(&pipex, argv, envp);
 			ft_exec(&pipex, argv, envp);
 		}
 		ft_cleanup(&pipex);
@@ -48,6 +48,11 @@ void	ft_cleanup(t_pipex *pipex)
 		free(pipex->cmd_path);
 		pipex->cmd_path = NULL;
 	}
+	if (pipex->limiter_flag == 1)
+	{
+		free(pipex->limiter);
+		pipex->limiter = NULL;
+	}
 	free_tab(pipex->all_paths);
 	free_tab(pipex->cmd_args);
 }
@@ -57,9 +62,12 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (tab == NULL)
+		return ;
 	while (tab[i] != NULL)
 	{
 		free(tab[i]);
+		tab[i] = NULL;
 		i++;
 	}
 	free(tab);

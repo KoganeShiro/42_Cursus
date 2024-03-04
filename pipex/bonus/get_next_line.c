@@ -97,22 +97,32 @@ char	*get_next_line(int fd, t_pipex *pipex)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = read_file(fd, buffer);
-	if (!buffer || buffer[0] == '\0')
-	{
-		free(buffer);
-		buffer = NULL;
-		return (NULL);
-	}
 	line = extract_line(buffer);
 	buffer = find_next_line(buffer);
-	if ((ft_strlen(pipex->limiter) + 1 == ft_strlen(line)
-				&& ft_strncmp(line, pipex->limiter,
-					ft_strlen(pipex->limiter)) == 0))
+	_condition_(pipex, buffer, line);
+	return (line);
+}
+
+char	*_condition_(t_pipex *pipex, char *buffer, char *line)
+{
+	if (ft_strlen(pipex->limiter) + 1 == ft_strlen(line)
+		&& ft_strncmp(line, pipex->limiter,
+			ft_strlen(pipex->limiter)) == 0)
 	{
 		free(buffer);
 		buffer = NULL;
 		return (line);
 	}
-	(void)pipex;
-	return (line);
+	else if (pipex->limiter_flag == 1
+		&& ft_strlen(pipex->limiter) == ft_strlen(line)
+		&& ft_strncmp(line, pipex->limiter, 1) == 0)
+	{
+		free(buffer);
+		buffer = NULL;
+		return (line);
+	}
+	else
+	{
+		return (line);
+	}
 }

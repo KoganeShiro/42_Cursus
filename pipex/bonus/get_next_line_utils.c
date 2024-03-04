@@ -34,7 +34,8 @@ char	*ft_strjoin_gnl(char *buffer, char *tmp)
 		j++;
 	}
 	line[i + j] = '\0';
-	free(buffer);
+	if (buffer != NULL)
+		free(buffer);
 	return (line);
 }
 

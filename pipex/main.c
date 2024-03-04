@@ -23,10 +23,9 @@ int	main(int argc, char **argv, char **envp)
 		pipex.cmd_path = NULL;
 		free(pipex.cmd2_path);
 		pipex.cmd2_path = NULL;
-		pipex.flag_cmd1 = 0;
-		pipex.flag_cmd2 = 0;
 		check_args(argv, &pipex);
 		get_path(&pipex, argv, envp);
+		exec_cmd(&pipex, envp);
 		ft_cleanup(&pipex);
 	}
 	else
@@ -68,6 +67,8 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (tab == NULL)
+		return ;
 	while (tab[i] != NULL)
 	{
 		free(tab[i]);

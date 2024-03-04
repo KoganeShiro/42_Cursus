@@ -12,6 +12,30 @@
 
 #include "pipex.h"
 
+void	get_path(t_pipex *pipex, char **argv, char **envp)
+{
+	int		i;
+
+	check_cmd1(pipex, argv);
+	if (pipex->cmd_is_path == 0)
+		pipex->cmd_args1 = ft_split((const char *)argv[2], " ");
+	check_cmd2(pipex, argv);
+	if (pipex->cmd2_is_path == 0)
+		pipex->cmd_args2 = ft_split((const char *)argv[3], " ");
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		if (ft_strncmp(envp[i], "PATH=/", 5) == 0)
+		{
+			pipex->all_paths = ft_split(envp[i] + 5, ":");
+			is_cmd_exist(pipex);
+			is_cmd2_exist(pipex);
+			break ;
+		}
+		i++;
+	}
+}
+
 void	exec_cmd(t_pipex *pipex, char **envp)
 {
 	int		fd[2];
@@ -44,10 +68,8 @@ void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2])
 	close(pipex->infile_fd);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
-	if (pipex->flag_cmd1 == 1)
-		execve(pipex->cmd_path, pipex->cmd_args1, envp);
-	else
-		perror("execve (cmd1 command not found)");
+	execve(pipex->cmd_path, pipex->cmd_args1, envp);
+	perror("execve (cmd1 command not found)");
 	ft_cleanup(pipex);
 	exit(EXIT_FAILURE);
 }
@@ -70,8 +92,7 @@ void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2])
 		close(fd[1]);
 		dup2(pipex->outfile_fd, STDOUT_FILENO);
 		close(pipex->outfile_fd);
-		if (pipex->flag_cmd2 == 1)
-			execve(pipex->cmd2_path, pipex->cmd_args2, envp);
+		execve(pipex->cmd2_path, pipex->cmd_args2, envp);
 		perror("execve (cmd2 command not found)");
 		ft_cleanup(pipex);
 		exit(EXIT_FAILURE);

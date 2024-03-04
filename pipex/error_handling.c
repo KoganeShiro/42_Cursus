@@ -28,23 +28,45 @@ void	check_args(char **argv, t_pipex *pipex)
 	}
 }
 
-void	get_path(t_pipex *pipex, char **argv, char **envp)
+void	check_cmd1(t_pipex *pipex, char **argv)
 {
 	int		i;
 
-	pipex->cmd_args1 = ft_split((const char *)argv[2], " ");
-	pipex->cmd_args2 = ft_split((const char *)argv[3], " ");
-	i = 0;
-	while (envp[i] != NULL)
+	pipex->cmd_is_path = 0;
+	i = ft_strlen(argv[2]);
+	pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
+	while (i != 0)
 	{
-		if (ft_strncmp(envp[i], "PATH=/", 5) == 0)
+		if (ft_strncmp(&argv[2][i], "/", 1) == 0)
 		{
-			pipex->all_paths = ft_split(envp[i] + 5, ":");
-			is_cmd_exist(pipex);
-			exec_cmd(pipex, envp);
+			pipex->cmd_args1[0] = ft_strdup(argv[2] + (i + 1));
+			pipex->cmd_args1[1] = NULL;
+			pipex->cmd_path = ft_strdup(argv[2]);
+			pipex->cmd_is_path = 1;
 			break ;
 		}
-		i++;
+		i--;
+	}
+}
+
+void	check_cmd2(t_pipex *pipex, char **argv)
+{
+	int	i;
+
+	i = 0;
+	pipex->cmd_is_path = 0;
+	i = ft_strlen(argv[3]);
+	pipex->cmd_args2 = ft_calloc(2, sizeof(char *));
+	while (i != 0)
+	{
+		if (ft_strncmp(&argv[3][i], "/", 1) == 0)
+		{
+			pipex->cmd_args2[0] = ft_strdup(argv[3] + (i + 1));
+			pipex->cmd2_path = ft_strdup(argv[3]);
+			pipex->cmd2_is_path = 1;
+			break ;
+		}
+		i--;
 	}
 }
 
@@ -53,23 +75,38 @@ void	is_cmd_exist(t_pipex *pipex)
 	int		i;
 
 	i = 0;
+	if (pipex->cmd_is_path == 1)
+		return ;
 	while (pipex->all_paths[i] != NULL)
 	{
 		free(pipex->tmp_path);
-		free(pipex->tmp_path2);
 		pipex->tmp_path = ft_strjoin(pipex->all_paths[i], pipex->cmd_args1[0]);
-		pipex->tmp_path2 = ft_strjoin(pipex->all_paths[i], pipex->cmd_args2[0]);
 		if (access(pipex->tmp_path, X_OK) != -1)
 		{
 			free(pipex->cmd_path);
 			pipex->cmd_path = ft_strdup(pipex->tmp_path);
-			pipex->flag_cmd1 = 1;
 		}
+		if (pipex->all_paths[i + 1] == NULL)
+			break ;
+		i++;
+	}
+}
+
+void	is_cmd2_exist(t_pipex *pipex)
+{
+	int		i;
+
+	i = 0;
+	if (pipex->cmd2_is_path == 1)
+		return ;
+	while (pipex->all_paths[i] != NULL)
+	{
+		free(pipex->tmp_path2);
+		pipex->tmp_path2 = ft_strjoin(pipex->all_paths[i], pipex->cmd_args2[0]);
 		if (access(pipex->tmp_path2, X_OK) != -1)
 		{
 			free(pipex->cmd2_path);
 			pipex->cmd2_path = ft_strdup(pipex->tmp_path2);
-			pipex->flag_cmd2 = 1;
 		}
 		if (pipex->all_paths[i + 1] == NULL)
 			break ;
