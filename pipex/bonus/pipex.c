@@ -17,6 +17,7 @@ void	ft_exec(t_pipex *pipex, char **argv, char **envp)
 	int	i;
 
 	i = 0;
+	free_tab(pipex->cmd_args);
 	while (pipex->nb_of_cmd > 1)
 	{
 		ft_exec_cmd(pipex, argv, envp);

@@ -72,6 +72,12 @@ void	get_path(t_pipex *pipex, char **argv, char **envp)
 		}
 		i++;
 	}
+	if (pipex->all_paths == NULL)
+	{
+		write(2, "Path not found\n", 15);
+		ft_cleanup(pipex);
+		exit(EXIT_FAILURE);
+	}
 	check_cmd(pipex, argv);
 	if (pipex->cmd_is_path == 0)
 		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");

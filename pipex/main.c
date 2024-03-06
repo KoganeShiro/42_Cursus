@@ -12,6 +12,40 @@
 
 #include "pipex.h"
 
+/*
+In summary what is my program doing ?
+
+check_args()
+	open or create the outfile
+	open the infile
+
+get_path()
+	check_cmd1()
+	check_cmd2()
+		if the arg is not a command but the path of the command
+		if it is then fill the pipex->cmd_args1 and pipex->cmd_args2
+		pipex->cmd_path and pipex->cmd2_path
+	the arg is a command, so it will split it and fill the pipex->cmd_args1 and pipex->cmd_args2
+	and fill pipex->all_paths
+
+call is_cmd_exist()
+	is_cmd2_exist()
+		fill the pipex->cmd_path and pipex->cmd2_path
+
+exec_cmd()
+	create a pipe and a fork
+	in the child exec_cmd1()
+		use dup2 to redirect the output
+		execute the command
+	exec_cmd2()
+		fork and in the child
+		use dup2 to redirect the output
+		execute the command
+
+ft_cleanup()
+	will free and close the fd
+*/
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
@@ -24,7 +58,13 @@ int	main(int argc, char **argv, char **envp)
 		free(pipex.cmd2_path);
 		pipex.cmd2_path = NULL;
 		check_args(argv, &pipex);
-		get_path(&pipex, argv, envp);
+		check_cmd1(&pipex, argv);
+		if (pipex.cmd_is_path == 0)
+			pipex.cmd_args1 = ft_split((const char *)argv[2], " ");
+		check_cmd2(&pipex, argv);
+		if (pipex.cmd2_is_path == 0)
+			pipex.cmd_args2 = ft_split((const char *)argv[3], " ");
+		get_path(&pipex, envp);
 		exec_cmd(&pipex, envp);
 		ft_cleanup(&pipex);
 	}

@@ -12,6 +12,71 @@
 
 #include "pipex_bonus.h"
 
+/*
+In summary what is my program doing ?
+
+pipex bonus: manage multiple pipes and a heredoc
+
+* multiple pipes
+check_args()
+	open or create the outfile
+	open the infile
+
+get_path()
+	fill pipex->all_paths
+	if the path doesn't exist
+	check_cmd()
+		check if the arg is the path of the command
+		if yes than fill pipex->cmd_args and pipex->cmd_path
+	else the arg is a command so split it and fill pipex->cmd_args
+
+ft_exec()
+	while (pipex->nb_of_cmd > 1)
+		ft_exec_cmd()
+			create a pipe and a fork
+			in the child ft_execve()
+			use dup2 to redirect the output
+			execute the command
+	ft_execve_last()
+		fork in the child ft_execve()
+		use dup2 to redirect the output
+		execute the command
+wait for all the child to finish
+
+ft_cleanup()
+	will free and close all the fd (that i have open)
+
+
+* heredoc
+ft_here_doc()
+	check if the limiter is nothing, if it is then when the user will '\n' this will be the delimiter
+	open or create the outfile
+wrin_heredoc()
+	open the heredoc (tmp file)
+	write things in it and if the line == to the limiter then delete the file
+open the infile (which is the heredoc)
+
+get_path
+	fill pipex->all_paths
+	if the path doesn't exist
+	check_cmd()
+		check if the arg is the path of the command
+		if yes than fill pipex->cmd_args and pipex->cmd_path
+	else the arg is a command so split it and fill pipex->cmd_args
+
+exec_heredoc()
+	_exec_()
+		create a pipe and a fork
+		in the child _execve_()
+		use dup2 to redirect the output
+		execute the command
+		execve the first cmd with the heredoc
+	while (pipex->nb_of_cmd > 1)
+		ft_exec_cmd()
+	ft_execve_last()
+
+*/
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
@@ -35,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_cleanup(&pipex);
 	}
 	else
-		write(1, ERROR_MSG, 75);
+		write(1, ERROR_MSG, 136);
 	return (0);
 }
 

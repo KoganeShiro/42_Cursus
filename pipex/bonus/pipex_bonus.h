@@ -21,8 +21,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-# define ERROR_MSG "You should execute it like that:\n\t \
-`./pipex infile 'cmd1' 'cmd2' outfile`\n\n"
+# define ERROR_MSG "You should execute it like that:\n\t\
+./pipex_bonus infile 'cmd1' 'cmd2' ... outfile\n\
+or\n\t./pipex_bonus here_doc LIMITER 'cmd1' ... outfile\n\n"
 
 # define BUFFER_SIZE 1000
 

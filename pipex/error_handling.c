@@ -34,11 +34,11 @@ void	check_cmd1(t_pipex *pipex, char **argv)
 
 	pipex->cmd_is_path = 0;
 	i = ft_strlen(argv[2]);
-	pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
 	while (i != 0)
 	{
 		if (ft_strncmp(&argv[2][i], "/", 1) == 0)
 		{
+			pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
 			pipex->cmd_args1[0] = ft_strdup(argv[2] + (i + 1));
 			pipex->cmd_args1[1] = NULL;
 			pipex->cmd_path = ft_strdup(argv[2]);
@@ -56,11 +56,11 @@ void	check_cmd2(t_pipex *pipex, char **argv)
 	i = 0;
 	pipex->cmd_is_path = 0;
 	i = ft_strlen(argv[3]);
-	pipex->cmd_args2 = ft_calloc(2, sizeof(char *));
 	while (i != 0)
 	{
 		if (ft_strncmp(&argv[3][i], "/", 1) == 0)
 		{
+			pipex->cmd_args2 = ft_calloc(2, sizeof(char *));
 			pipex->cmd_args2[0] = ft_strdup(argv[3] + (i + 1));
 			pipex->cmd2_path = ft_strdup(argv[3]);
 			pipex->cmd2_is_path = 1;

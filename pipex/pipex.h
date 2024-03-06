@@ -45,7 +45,7 @@ void	ft_cleanup(t_pipex *pipex);
 void	free_tab(char **tab);
 
 /* PIPEX */
-void	get_path(t_pipex *pipe, char **argv, char **envp);
+void	get_path(t_pipex *pipe, char **envp);
 void	exec_cmd(t_pipex *pipex, char **envp);
 void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2]);
 void	exec_cmd2(t_pipex *pipex, char **envp, int fd[2]);

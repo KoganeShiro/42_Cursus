@@ -12,16 +12,10 @@
 
 #include "pipex.h"
 
-void	get_path(t_pipex *pipex, char **argv, char **envp)
+void	get_path(t_pipex *pipex, char **envp)
 {
 	int		i;
 
-	check_cmd1(pipex, argv);
-	if (pipex->cmd_is_path == 0)
-		pipex->cmd_args1 = ft_split((const char *)argv[2], " ");
-	check_cmd2(pipex, argv);
-	if (pipex->cmd2_is_path == 0)
-		pipex->cmd_args2 = ft_split((const char *)argv[3], " ");
 	i = 0;
 	while (envp[i] != NULL)
 	{
@@ -33,6 +27,12 @@ void	get_path(t_pipex *pipex, char **argv, char **envp)
 			break ;
 		}
 		i++;
+	}
+	if (pipex->all_paths == NULL)
+	{
+		write(2, "Path not found\n", 15);
+		ft_cleanup(pipex);
+		exit(EXIT_FAILURE);
 	}
 }
 
