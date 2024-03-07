@@ -2,7 +2,9 @@
 
 
 In summary what is my program doing ?
+Understand how pipe works
 
+```c
 check_args()
 	open or create the outfile
 	open the infile
@@ -32,17 +34,17 @@ exec_cmd()
 
 ft_cleanup()
 	will free and close the fd
+```
 
 
 
 
 
-
-In summary what is my program doing (for the bonus) ?
-
+In summary what is my program doing ?
 pipex bonus: manage multiple pipes and a heredoc
 
-* multiple pipes
+```c
+//* multiple pipes
 check_args()
 	open or create the outfile
 	open the infile
@@ -72,7 +74,7 @@ ft_cleanup()
 	will free and close all the fd (that i have open)
 
 
-* heredoc
+//* heredoc
 ft_here_doc()
 	check if the limiter is nothing, if it is then when the user will '\n' this will be the delimiter
 	open or create the outfile
@@ -99,3 +101,4 @@ exec_heredoc()
 	while (pipex->nb_of_cmd > 1)
 		ft_exec_cmd()
 	ft_execve_last()
+```
