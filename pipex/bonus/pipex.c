@@ -18,6 +18,7 @@ void	ft_exec(t_pipex *pipex, char **argv, char **envp)
 
 	i = 0;
 	free_tab(pipex->cmd_args);
+	free(pipex->cmd_path);
 	while (pipex->nb_of_cmd > 1)
 	{
 		ft_exec_cmd(pipex, argv, envp);
@@ -120,7 +121,7 @@ void	ft_execve_last(t_pipex *pipex, char **envp)
 			execve(pipex->cmd_path, pipex->cmd_args, envp);
 			i++;
 		}
-		perror("execve (cmd2 command not found)");
+		perror("execve (cmd command not found)");
 		ft_cleanup(pipex);
 		exit(EXIT_FAILURE);
 	}

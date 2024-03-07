@@ -23,7 +23,7 @@
 
 # define ERROR_MSG "You should execute it like that:\n\t\
 ./pipex_bonus infile 'cmd1' 'cmd2' ... outfile\n\
-or\n\t./pipex_bonus here_doc LIMITER 'cmd1' ... outfile\n\n"
+or\n\t./pipex_bonus here_doc LIMITER 'cmd1' 'cmd2' ... outfile\n\n"
 
 # define BUFFER_SIZE 1000
 
@@ -45,6 +45,7 @@ typedef struct s_pipex
 
 /* MAIN */
 int		main(int argc, char **argv, char **envp);
+void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp);
 void	ft_cleanup(t_pipex *pipex);
 void	free_tab(char **tab);
 
