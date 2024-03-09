@@ -106,7 +106,7 @@ char	**ft_split(char const *s, const char *sep)
 	int		i;
 
 	i = 0;
-	if (!s || s[i] == '\0')
+	if (!s || s[i] == '\0' || s[i] == ' ')
 	{
 		res = ft_calloc(2, sizeof(char *));
 		if (res == NULL)
