@@ -97,12 +97,6 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = read_file(fd, buffer);
-	if (!buffer || buffer[0] == '\0')
-	{
-		free(buffer);
-		buffer = NULL;
-		return (NULL);
-	}
 	line = extract_line(buffer);
 	buffer = find_next_line(buffer);
 	if (!line && !buffer)
