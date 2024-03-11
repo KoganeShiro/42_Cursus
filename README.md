@@ -1,5 +1,6 @@
 # 42_Cursus
 
+## The School
 42 is a private, nonprofit and tuition-free computer programming school that was founded in France by Xavier Niel.
 The school is known for its unique and innovative approach to education, with a focus on project-based learning and peer-to-peer collaboration.
 ![image](https://github.com/KoganeShiro/42_Cursus/assets/126095786/fb1ddcc0-05cc-467c-bbff-d078c0e4e4b9)
@@ -17,7 +18,7 @@ We have a maximum of two years to navigate the common core, typically concluding
 
 Following the common core, students can choose from eight specialized branches. The common core is what inside all the circles and all the branches outside of it are the specializations
 
-## Here are all my projects of my 42 cursus
+## All the projects of my 42 cursus
 
 ### Piscine
  - [My Piscine](https://github.com/KoganeShiro/42_Cursus/tree/main/42Piscine)
@@ -35,3 +36,4 @@ Following the common core, students can choose from eight specialized branches. 
  - [Philosopher]
 
  - [exam](https://github.com/KoganeShiro/42_Cursus/tree/main/exam42)
+
