@@ -89,3 +89,22 @@ char	*ft_strjoin(char *s, char *add)
 	res[i + j] = '\0';
 	return (res);
 }
+
+char	*_m_strdup(char *str)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	while (str[i] != ' ' && str[i] != '\0')
+		i++;
+	res = ft_calloc(i, sizeof(char));
+	i = 0;
+	while (str[i] != ' ' && str[i] != '\0')
+	{
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}

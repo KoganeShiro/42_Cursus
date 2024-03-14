@@ -36,12 +36,20 @@ void	check_cmd1(t_pipex *pipex, char **argv)
 	i = ft_strlen(argv[2]);
 	while (i != 0)
 	{
+		pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
 		if (ft_strncmp(&argv[2][i], "/", 1) == 0)
 		{
-			pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
-			pipex->cmd_args1[0] = ft_strdup(argv[2] + (i + 1));
-			pipex->cmd_args1[1] = NULL;
-			pipex->cmd_path = ft_strdup(argv[2]);
+			if (ft_strchr(argv[2] + (i + 1), ' ') == 0)
+			{
+				pipex->cmd_args1[0] = ft_strdup(argv[2] + (i + 1));
+				pipex->cmd_args1[1] = NULL;
+				pipex->cmd_path = ft_strdup(argv[2]);
+			}
+			else
+			{
+				pipex->cmd_args1 = ft_split(argv[2] + (i + 1), " ");
+				pipex->cmd_path = ft_strdup_modif(argv[3]);
+			}
 			pipex->cmd_is_path = 1;
 			break ;
 		}
@@ -53,7 +61,6 @@ void	check_cmd2(t_pipex *pipex, char **argv)
 {
 	int	i;
 
-	i = 0;
 	pipex->cmd_is_path = 0;
 	i = ft_strlen(argv[3]);
 	while (i != 0)
@@ -61,8 +68,17 @@ void	check_cmd2(t_pipex *pipex, char **argv)
 		if (ft_strncmp(&argv[3][i], "/", 1) == 0)
 		{
 			pipex->cmd_args2 = ft_calloc(2, sizeof(char *));
-			pipex->cmd_args2[0] = ft_strdup(argv[3] + (i + 1));
-			pipex->cmd2_path = ft_strdup(argv[3]);
+			if (ft_strchr(argv[3] + (i + 1), ' ') == 0)
+			{
+				pipex->cmd_args2[0] = ft_strdup(argv[3] + (i + 1));
+				pipex->cmd_args2[1] = NULL;
+				pipex->cmd2_path = ft_strdup(argv[3]);
+			}
+			else
+			{
+				pipex->cmd_args2 = ft_split(argv[3] + (i + 1), " ");
+				pipex->cmd2_path = ft_strdup_modif(argv[3]);
+			}
 			pipex->cmd2_is_path = 1;
 			break ;
 		}

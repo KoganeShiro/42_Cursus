@@ -14,11 +14,14 @@ int	ft_printf(const char *str, ...);
 /*
 int	main()
 {
-	int	d = 5;
-	char str[50] = "hello";
-	int hex = 29;
-	printf("hey | %s, %d, hex '%x'\n", str, d, hex);
-	ft_printf("hey | %s %d, hex '%x'\n", str, d, hex);
+	int hex = 0;
+	int age = 0;
+	char *name = NULL;
+	int len = ft_printf("hello %s, you are %d, which in hex is %x\n", name, age, hex);
+	int len2 = printf("hello %s, you are %d, which in hex is %x\n", name, age, hex);
+	printf("\nlen: %d\n", len);
+	printf("len2: %d\n", len2);
+	return (0);
 }
 */
 

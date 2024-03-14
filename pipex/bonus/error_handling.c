@@ -83,21 +83,29 @@ void	get_path(t_pipex *pipex, char **argv, char **envp)
 		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
 }
 
-void	check_cmd(t_pipex *pipex, char **argv)
+void	check_cmd(t_pipex *p, char **argv)
 {
 	int		i;
 
-	pipex->cmd_is_path = 0;
-	i = ft_strlen(argv[pipex->cmd_count]);
+	p->cmd_is_path = 0;
+	i = ft_strlen(argv[p->cmd_count]);
 	while (i >= 0)
 	{
-		if (ft_strncmp(&argv[pipex->cmd_count][i], "/", 1) == 0)
+		if (ft_strncmp(&argv[p->cmd_count][i], "/", 1) == 0)
 		{
-			pipex->cmd_args = ft_calloc(2, sizeof(char *));
-			pipex->cmd_args[0] = ft_strdup(argv[pipex->cmd_count] + (i + 1));
-			pipex->cmd_args[1] = NULL;
-			pipex->cmd_path = ft_strdup(argv[pipex->cmd_count]);
-			pipex->cmd_is_path = 1;
+			p->cmd_args = ft_calloc(2, sizeof(char *));
+			if (ft_strchr(argv[p->cmd_count] + (i + 1), ' ') == 0)
+			{
+				p->cmd_args[0] = ft_strdup(argv[p->cmd_count] + (i + 1));
+				p->cmd_args[1] = NULL;
+				p->cmd_path = ft_strdup(argv[p->cmd_count]);
+			}
+			else
+			{
+				p->cmd_args = ft_split(argv[p->cmd_count] + (i + 1), " ");
+				p->cmd_path = _m_strdup(argv[p->cmd_count]);
+			}
+			p->cmd_is_path = 1;
 			break ;
 		}
 		i--;

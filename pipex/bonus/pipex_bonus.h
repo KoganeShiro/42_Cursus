@@ -59,7 +59,7 @@ void	wrin_heredoc(t_pipex *pipex, char *line);
 void	check_args(int argc, char **argv, t_pipex *pipex);
 void	ft_here_doc(t_pipex *pipex, int argc, char **argv);
 void	get_path(t_pipex *pipex, char **argv, char **envp);
-void	check_cmd(t_pipex *pipex, char **argv);
+void	check_cmd(t_pipex *p, char **argv);
 
 /* PIPEX */
 void	ft_exec(t_pipex *pipex, char **argv, char **envp);
@@ -73,6 +73,7 @@ void	ft_bzero(void *s, size_t n);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s, char *add);
+char	*_m_strdup(char *str);
 
 /* SPLIT */
 char	*ft_strdup(char *str);

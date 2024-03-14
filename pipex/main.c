@@ -83,3 +83,22 @@ void	free_tab(char **tab)
 	free(tab);
 	tab = NULL;
 }
+
+char	*ft_strdup_modif(char *str)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	while (str[i] != ' ' && str[i] != '\0')
+		i++;
+	res = ft_calloc(i, sizeof(char));
+	i = 0;
+	while (str[i] != ' ' && str[i] != '\0')
+	{
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}

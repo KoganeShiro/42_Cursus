@@ -43,6 +43,7 @@ typedef struct s_pipex
 int		main(int argc, char **argv, char **envp);
 void	ft_cleanup(t_pipex *pipex);
 void	free_tab(char **tab);
+char	*ft_strdup_modif(char *str);
 
 /* PIPEX */
 void	get_path(t_pipex *pipe, char **envp);
