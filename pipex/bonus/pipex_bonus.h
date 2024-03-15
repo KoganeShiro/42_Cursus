@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdbool.h>
 
 # define ERROR_MSG "You should execute it like that:\n\t\
 ./pipex_bonus infile 'cmd1' 'cmd2' ... outfile\n\
@@ -30,6 +31,7 @@ or\n\t./pipex_bonus here_doc LIMITER 'cmd1' 'cmd2' ... outfile\n\n"
 typedef struct s_pipex
 {
 	int		in_fd;
+	bool	infile_error;
 	int		outfile_fd;
 	char	*limiter;
 	int		limiter_flag;
@@ -38,7 +40,7 @@ typedef struct s_pipex
 	char	*cmd_path;
 	int		cmd_count;
 	int		nb_of_cmd;
-	int		is_first_cmd;
+	bool	is_first_cmd;
 	int		cmd_is_path;
 	pid_t	pid;
 }	t_pipex;

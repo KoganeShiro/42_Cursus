@@ -64,8 +64,11 @@ void	exec_cmd(t_pipex *pipex, char **envp)
 void	exec_cmd1(t_pipex *pipex, char **envp, int fd[2])
 {
 	close(fd[0]);
-	dup2(pipex->infile_fd, STDIN_FILENO);
-	close(pipex->infile_fd);
+	if (pipex->infile_error == 0)
+	{
+		dup2(pipex->infile_fd, STDIN_FILENO);
+		close(pipex->infile_fd);
+	}
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	execve(pipex->cmd_path, pipex->cmd_args1, envp);

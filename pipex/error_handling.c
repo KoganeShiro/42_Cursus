@@ -14,6 +14,7 @@
 
 void	check_args(char **argv, t_pipex *pipex)
 {
+	pipex->infile_error = 0;
 	pipex->outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (pipex->outfile_fd < 0)
 	{
@@ -24,7 +25,7 @@ void	check_args(char **argv, t_pipex *pipex)
 	if (pipex->infile_fd < 0)
 	{
 		perror(argv[1]);
-		exit(EXIT_FAILURE);
+		pipex->infile_error = 1;
 	}
 }
 
@@ -36,9 +37,9 @@ void	check_cmd1(t_pipex *pipex, char **argv)
 	i = ft_strlen(argv[2]);
 	while (i != 0)
 	{
-		pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
 		if (ft_strncmp(&argv[2][i], "/", 1) == 0)
 		{
+			pipex->cmd_args1 = ft_calloc(2, sizeof(char *));
 			if (ft_strchr(argv[2] + (i + 1), ' ') == 0)
 			{
 				pipex->cmd_args1[0] = ft_strdup(argv[2] + (i + 1));

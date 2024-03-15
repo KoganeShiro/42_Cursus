@@ -16,6 +16,7 @@ void	check_args(int argc, char **argv, t_pipex *pipex)
 {
 	pipex->cmd_count = 2;
 	pipex->is_first_cmd = 1;
+	//pipex->infile_error = 0;
 	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY
 			| O_CREAT | O_TRUNC, 0644);
 	if (pipex->outfile_fd < 0)
@@ -27,7 +28,7 @@ void	check_args(int argc, char **argv, t_pipex *pipex)
 	if (pipex->in_fd < 0)
 	{
 		perror(argv[1]);
-		exit(EXIT_FAILURE);
+		//pipex->infile_error = 1;
 	}
 }
 
@@ -54,7 +55,7 @@ void	ft_here_doc(t_pipex *pipex, int argc, char **argv)
 	if (pipex->in_fd < 0)
 	{
 		perror(argv[1]);
-		exit(EXIT_FAILURE);
+		//exit(EXIT_FAILURE);
 	}
 }
 

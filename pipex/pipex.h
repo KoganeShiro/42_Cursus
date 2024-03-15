@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdbool.h>
 
 # define ERROR_MSG "You should execute it like that:\n\t \
 `./pipex infile 'cmd1' 'cmd2' outfile`\n\n"
@@ -27,6 +28,7 @@
 typedef struct s_pipex
 {
 	int		infile_fd;
+	bool	infile_error;
 	int		outfile_fd;
 	char	**all_paths;
 	char	**cmd_args1;
@@ -35,8 +37,8 @@ typedef struct s_pipex
 	char	*cmd2_path;
 	char	*tmp_path;
 	char	*tmp_path2;
-	int		cmd_is_path;
-	int		cmd2_is_path;
+	bool	cmd_is_path;
+	bool	cmd2_is_path;
 }	t_pipex;
 
 /* MAIN */
