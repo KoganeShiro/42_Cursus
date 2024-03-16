@@ -47,37 +47,46 @@ void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp)
 		write(1, ERROR_MSG, 142);
 }
 
-void	ft_cleanup(t_pipex *pipex)
-{
-	close(pipex->in_fd);
-	close(pipex->outfile_fd);
-	if (pipex->cmd_path)
-	{
-		free(pipex->cmd_path);
-		pipex->cmd_path = NULL;
-	}
-	if (pipex->limiter_flag == 1)
-	{
-		free(pipex->limiter);
-		pipex->limiter = NULL;
-	}
-	free_tab(pipex->all_paths);
-	free_tab(pipex->cmd_args);
-}
-
-void	free_tab(char **tab)
+int	is_infinit_cmd(char **argv)
 {
 	int	i;
 
 	i = 0;
-	if (tab == NULL)
-		return ;
-	while (tab[i] != NULL)
+	while (argv[i] == NULL)
 	{
-		free(tab[i]);
-		tab[i] = NULL;
+		if (ft_strncmp(argv[i], "ls", 2) == 0
+			|| ft_strncmp(argv[i], "echo", 4) == 0
+			|| ft_strncmp(argv[i], "printf", 6) == 0)
+			return (i - 4);
 		i++;
 	}
-	free(tab);
-	tab = NULL;
+	return (0);
+}
+
+void	ft_wait(t_pipex *pipex, char **argv)
+{
+	int	i;
+	int	cmd;
+
+	i = 0;
+	cmd = is_infinit_cmd(argv);
+	if (pipex->infile_error == 1)
+	{
+		if (cmd != 0)
+		{
+			while (i < (pipex->cmd_count - cmd))
+			{
+				wait(NULL);
+				i++;
+			}
+		}
+	}
+	else
+	{
+		while (i < (pipex->cmd_count))
+		{
+			wait(NULL);
+			i++;
+		}
+	}
 }

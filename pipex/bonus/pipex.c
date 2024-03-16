@@ -30,11 +30,7 @@ void	ft_exec(t_pipex *pipex, char **argv, char **envp)
 	if (pipex->cmd_is_path == 0)
 		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
 	ft_execve_last(pipex, envp);
-	while (i < pipex->cmd_count)
-	{
-		wait(NULL);
-		i++;
-	}
+	ft_wait(pipex, argv);
 }
 
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)

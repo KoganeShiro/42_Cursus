@@ -48,8 +48,7 @@ typedef struct s_pipex
 /* MAIN */
 int		main(int argc, char **argv, char **envp);
 void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp);
-void	ft_cleanup(t_pipex *pipex);
-void	free_tab(char **tab);
+void	ft_wait(t_pipex *pipex, char **argv);
 
 /* HERE_DOC */
 void	exec_heredoc(t_pipex *pipex, char **argv, char **envp);
@@ -69,6 +68,10 @@ void	_cmd_is_path(t_pipex *pipex, char **envp);
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
 void	ft_execve(t_pipex *pipex, char **envp, int fd[2]);
 void	ft_execve_last(t_pipex *pipex, char **envp);
+
+/* FREE */
+void	ft_cleanup(t_pipex *pipex);
+void	free_tab(char **tab);
 
 /* UTILS */
 void	ft_bzero(void *s, size_t n);
