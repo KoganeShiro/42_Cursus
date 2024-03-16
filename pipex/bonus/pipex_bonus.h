@@ -40,7 +40,6 @@ typedef struct s_pipex
 	char	*cmd_path;
 	int		cmd_count;
 	int		nb_of_cmd;
-	bool	is_first_cmd;
 	int		cmd_is_path;
 	pid_t	pid;
 }	t_pipex;
@@ -48,7 +47,7 @@ typedef struct s_pipex
 /* MAIN */
 int		main(int argc, char **argv, char **envp);
 void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp);
-void	ft_wait(t_pipex *pipex, char **argv);
+//void	ft_wait(t_pipex *pipex, char **argv);
 
 /* HERE_DOC */
 void	exec_heredoc(t_pipex *pipex, char **argv, char **envp);
@@ -64,8 +63,11 @@ void	check_cmd(t_pipex *p, char **argv);
 
 /* PIPEX */
 void	ft_exec(t_pipex *pipex, char **argv, char **envp);
-void	_cmd_is_path(t_pipex *pipex, char **envp);
+void	create_pipe_fork(t_pipex *pipex, int fd[2]);
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
+void	_cmd_is_path(t_pipex *pipex, char **envp);
+
+/* EXECVE */
 void	ft_execve(t_pipex *pipex, char **envp, int fd[2]);
 void	ft_execve_last(t_pipex *pipex, char **envp);
 

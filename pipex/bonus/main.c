@@ -47,7 +47,8 @@ void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp)
 		write(1, ERROR_MSG, 142);
 }
 
-int	is_infinit_cmd(char **argv)
+/*
+int	is_infinite_cmd(char **argv)
 {
 	int	i;
 
@@ -69,7 +70,7 @@ void	ft_wait(t_pipex *pipex, char **argv)
 	int	cmd;
 
 	i = 0;
-	cmd = is_infinit_cmd(argv);
+	cmd = is_infinite_cmd(argv);
 	if (pipex->infile_error == 1)
 	{
 		if (cmd != 0)
@@ -90,3 +91,4 @@ void	ft_wait(t_pipex *pipex, char **argv)
 		}
 	}
 }
+*/

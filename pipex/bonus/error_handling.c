@@ -15,7 +15,6 @@
 void	check_args(int argc, char **argv, t_pipex *pipex)
 {
 	pipex->cmd_count = 2;
-	pipex->is_first_cmd = 1;
 	pipex->infile_error = 0;
 	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY
 			| O_CREAT | O_TRUNC, 0644);
@@ -37,7 +36,6 @@ void	ft_here_doc(t_pipex *pipex, int argc, char **argv)
 	pipex->limiter = argv[2];
 	pipex->nb_of_cmd = argc - 4;
 	pipex->cmd_count = 3;
-	pipex->is_first_cmd = 1;
 	if (pipex->limiter == NULL || pipex->limiter[0] == '\0')
 	{
 		pipex->limiter = ft_strdup("\n");
