@@ -15,7 +15,7 @@ CFLAGS = -Werror -Wextra -Wall -g
 
 SRCS = 	pipex.c utils.c error_handling.c ft_split.c main.c
 
-SRCS_BONUS = 	bonus/get_next_line.c  bonus/get_next_line_utils.c \
+SRCS_BONUS = 	bonus/get_next_line.c  bonus/get_next_line_utils.c bonus/execve.c \
 				bonus/pipex.c bonus/utils.c bonus/here_doc.c bonus/free.c \
 				bonus/error_handling.c bonus/ft_split.c bonus/main.c
 

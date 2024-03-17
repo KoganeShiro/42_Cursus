@@ -54,14 +54,6 @@ void	create_pipe_fork(t_pipex *pipex, int fd[2])
 	}
 }
 
-void	ft_exec_nothing(t_pipex *pipex, int fd[2])
-{
-	pipex->infile_error = 0;
-	close(pipex->in_fd);
-	close(fd[0]);
-	close(fd[1]);
-}
-
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)
 {
 	int		fd[2];
@@ -71,12 +63,7 @@ void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)
 		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
 	create_pipe_fork(pipex, fd);
 	if (pipex->pid == 0)
-	{
-		if (pipex->infile_error == 1)
-			ft_exec_nothing(pipex, fd);
-		else
 			ft_execve(pipex, envp, fd);
-	}
 	close(fd[1]);
 	close(pipex->in_fd);
 	pipex->in_fd = fd[0];
