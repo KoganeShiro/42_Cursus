@@ -31,9 +31,7 @@ void	ft_execve(t_pipex *pipex, char **envp, int fd[2])
 		execve(pipex->cmd_path, pipex->cmd_args, envp);
 		i++;
 	}
-	perror("execve (cmd command not found)");
-	ft_cleanup(pipex);
-	exit(EXIT_FAILURE);
+	error_free(pipex, "command not found:");
 }
 
 void	ft_execve_last(t_pipex *pipex, char **envp)
@@ -58,9 +56,7 @@ void	ft_execve_last(t_pipex *pipex, char **envp)
 			execve(pipex->cmd_path, pipex->cmd_args, envp);
 			i++;
 		}
-		perror("execve (cmd command not found)");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
+		error_free(pipex, "last command not found");
 	}
 	close(pipex->in_fd);
 }

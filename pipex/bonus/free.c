@@ -46,3 +46,20 @@ void	free_tab(char **tab)
 	free(tab);
 	tab = NULL;
 }
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	len;
+
+	len = ft_strlen(s);
+	write(fd, s, len);
+	write(fd, "\n", 1);
+	return ;
+}
+
+void	error_free(t_pipex *pipex, char	*msg)
+{
+	ft_putstr_fd(msg, 2);
+	ft_cleanup(pipex);
+	exit(EXIT_FAILURE);
+}

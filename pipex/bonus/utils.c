@@ -98,7 +98,7 @@ char	*_m_strdup(char *str)
 	i = 0;
 	while (str[i] != ' ' && str[i] != '\0')
 		i++;
-	res = ft_calloc(i, sizeof(char));
+	res = ft_calloc((i + 1), sizeof(char));
 	i = 0;
 	while (str[i] != ' ' && str[i] != '\0')
 	{

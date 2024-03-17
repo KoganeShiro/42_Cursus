@@ -16,7 +16,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc >= 5)
+	if (argc == 2)
+		exec_one_cmd(&pipex, argv, envp);
+	else if (argc >= 3)
 	{
 		bzero(&pipex, sizeof(t_pipex));
 		if (ft_strncmp(argv[1], "here_doc", 8) == 0)
@@ -31,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_cleanup(&pipex);
 	}
 	else
-		write(1, ERROR_MSG, 142);
+		ft_putstr_fd(ERROR_MSG, 2);
 	return (0);
 }
 
@@ -44,51 +46,5 @@ void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp)
 		exec_heredoc(pipex, argv, envp);
 	}
 	else
-		write(1, ERROR_MSG, 142);
+		ft_putstr_fd(ERROR_MSG, 2);
 }
-
-/*
-int	is_infinite_cmd(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i] == NULL)
-	{
-		if (ft_strncmp(argv[i], "ls", 2) == 0
-			|| ft_strncmp(argv[i], "echo", 4) == 0
-			|| ft_strncmp(argv[i], "printf", 6) == 0)
-			return (i - 4);
-		i++;
-	}
-	return (0);
-}
-
-void	ft_wait(t_pipex *pipex, char **argv)
-{
-	int	i;
-	int	cmd;
-
-	i = 0;
-	cmd = is_infinite_cmd(argv);
-	if (pipex->infile_error == 1)
-	{
-		if (cmd != 0)
-		{
-			while (i < (pipex->cmd_count - cmd))
-			{
-				wait(NULL);
-				i++;
-			}
-		}
-	}
-	else
-	{
-		while (i < (pipex->cmd_count))
-		{
-			wait(NULL);
-			i++;
-		}
-	}
-}
-*/

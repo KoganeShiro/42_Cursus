@@ -23,6 +23,8 @@ void	ft_exec(t_pipex *pipex, char **argv, char **envp)
 	{
 		ft_exec_cmd(pipex, argv, envp);
 		free_tab(pipex->cmd_args);
+		free(pipex->cmd_path);
+		pipex->cmd_path = NULL;
 		pipex->nb_of_cmd--;
 		pipex->cmd_count++;
 	}
@@ -37,21 +39,23 @@ void	ft_exec(t_pipex *pipex, char **argv, char **envp)
 	}
 }
 
-void	create_pipe_fork(t_pipex *pipex, int fd[2])
+int	check_infile(t_pipex *pipex, int fd[2])
 {
-	if (pipe(fd) == -1)
+	if (pipex->first_cmd == 1)
 	{
-		perror("pipe");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
+		pipex->first_cmd = 0;
+		if (pipex->infile_error == 1)
+		{
+			pipex->in_fd = open("/dev/null", O_RDONLY);
+			dup2(pipex->in_fd, STDIN_FILENO);
+			close(fd[0]);
+			close(pipex->in_fd);
+			dup2(fd[1], STDOUT_FILENO);
+			close(fd[1]);
+			return (1);
+		}
 	}
-	pipex->pid = fork();
-	if (pipex->pid == -1)
-	{
-		perror("fork");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
-	}
+	return (0);
 }
 
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)
@@ -61,12 +65,19 @@ void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp)
 	check_cmd(pipex, argv);
 	if (pipex->cmd_is_path == 0)
 		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
-	create_pipe_fork(pipex, fd);
-	if (pipex->pid == 0)
+	if (pipe(fd) == -1)
+		error_free(pipex, "pipe error");
+	if (check_infile(pipex, fd) == 0)
+	{
+		pipex->pid = fork();
+		if (pipex->pid == -1)
+			error_free(pipex, "fork error");
+		if (pipex->pid == 0)
 			ft_execve(pipex, envp, fd);
-	close(fd[1]);
-	close(pipex->in_fd);
-	pipex->in_fd = fd[0];
+		close(fd[1]);
+		close(pipex->in_fd);
+		pipex->in_fd = fd[0];
+	}
 }
 
 void	_cmd_is_path(t_pipex *pipex, char **envp)
@@ -74,8 +85,6 @@ void	_cmd_is_path(t_pipex *pipex, char **envp)
 	if (pipex->cmd_is_path == 1)
 	{
 		execve(pipex->cmd_path, pipex->cmd_args, envp);
-		perror("execve (cmd command not found)");
-		ft_cleanup(pipex);
-		exit(EXIT_FAILURE);
+		error_free(pipex, "command path not found");
 	}
 }

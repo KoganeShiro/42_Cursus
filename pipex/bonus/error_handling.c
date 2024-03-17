@@ -16,6 +16,7 @@ void	check_args(int argc, char **argv, t_pipex *pipex)
 {
 	pipex->cmd_count = 2;
 	pipex->infile_error = 0;
+	pipex->first_cmd = 1;
 	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY
 			| O_CREAT | O_TRUNC, 0644);
 	if (pipex->outfile_fd < 0)
@@ -29,6 +30,8 @@ void	check_args(int argc, char **argv, t_pipex *pipex)
 		perror(argv[1]);
 		pipex->infile_error = 1;
 	}
+	else
+		pipex->infile_error = 0;
 }
 
 void	ft_here_doc(t_pipex *pipex, int argc, char **argv)
@@ -71,13 +74,13 @@ void	get_path(t_pipex *pipex, char **argv, char **envp)
 		}
 		i++;
 	}
-	if (pipex->all_paths == NULL)
+	check_cmd(pipex, argv);
+	if (pipex->all_paths == NULL && pipex->cmd_is_path != 0)
 	{
 		write(2, "Path not found\n", 15);
 		ft_cleanup(pipex);
 		exit(EXIT_FAILURE);
 	}
-	check_cmd(pipex, argv);
 	if (pipex->cmd_is_path == 0)
 		pipex->cmd_args = ft_split((const char *)argv[pipex->cmd_count], " ");
 }
@@ -92,6 +95,7 @@ void	check_cmd(t_pipex *p, char **argv)
 	{
 		if (ft_strncmp(&argv[p->cmd_count][i], "/", 1) == 0)
 		{
+			//leak bc of p->cmd_args when there are two cmd that is a path
 			p->cmd_args = ft_calloc(2, sizeof(char *));
 			if (ft_strchr(argv[p->cmd_count] + (i + 1), ' ') == 0)
 			{

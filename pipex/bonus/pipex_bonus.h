@@ -40,14 +40,14 @@ typedef struct s_pipex
 	char	*cmd_path;
 	int		cmd_count;
 	int		nb_of_cmd;
-	int		cmd_is_path;
+	bool	cmd_is_path;
+	bool	first_cmd;
 	pid_t	pid;
 }	t_pipex;
 
 /* MAIN */
 int		main(int argc, char **argv, char **envp);
 void	launch_heredoc(t_pipex *pipex, int argc, char **argv, char **envp);
-//void	ft_wait(t_pipex *pipex, char **argv);
 
 /* HERE_DOC */
 void	exec_heredoc(t_pipex *pipex, char **argv, char **envp);
@@ -63,18 +63,21 @@ void	check_cmd(t_pipex *p, char **argv);
 
 /* PIPEX */
 void	ft_exec(t_pipex *pipex, char **argv, char **envp);
-void	create_pipe_fork(t_pipex *pipex, int fd[2]);
+int		check_infile(t_pipex *pipex, int fd[2]);
 void	ft_exec_cmd(t_pipex *pipex, char **argv, char **envp);
 void	_cmd_is_path(t_pipex *pipex, char **envp);
 
 /* EXECVE */
+void	exec_one_cmd(t_pipex *pipex, char **argv, char **envp);
+void	execve_one_cmd(t_pipex *pipex, char **envp);
 void	ft_execve(t_pipex *pipex, char **envp, int fd[2]);
 void	ft_execve_last(t_pipex *pipex, char **envp);
 
 /* FREE */
 void	ft_cleanup(t_pipex *pipex);
 void	free_tab(char **tab);
-
+void	ft_putstr_fd(char *s, int fd);
+void	error_free(t_pipex *pipex, char	*msg);
 /* UTILS */
 void	ft_bzero(void *s, size_t n);
 int		ft_strncmp(char *s1, char *s2, int n);
