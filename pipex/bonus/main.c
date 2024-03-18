@@ -16,9 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
-	if (argc == 2)
-		exec_one_cmd(&pipex, argv, envp);
-	else if (argc >= 3)
+	if (argc >= 3)
 	{
 		bzero(&pipex, sizeof(t_pipex));
 		if (ft_strncmp(argv[1], "here_doc", 8) == 0)

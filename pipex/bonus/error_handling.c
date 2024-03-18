@@ -95,10 +95,9 @@ void	check_cmd(t_pipex *p, char **argv)
 	{
 		if (ft_strncmp(&argv[p->cmd_count][i], "/", 1) == 0)
 		{
-			//leak bc of p->cmd_args when there are two cmd that is a path
-			p->cmd_args = ft_calloc(2, sizeof(char *));
 			if (ft_strchr(argv[p->cmd_count] + (i + 1), ' ') == 0)
 			{
+				p->cmd_args = ft_calloc(2, sizeof(char *));
 				p->cmd_args[0] = ft_strdup(argv[p->cmd_count] + (i + 1));
 				p->cmd_args[1] = NULL;
 				p->cmd_path = ft_strdup(argv[p->cmd_count]);
