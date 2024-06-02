@@ -5,12 +5,16 @@
     - [The Project](#The-Project)
     - [Quick Start](#Quick-Start)
 
+<<<<<<< HEAD
+#
+
 ## Introduction
 Make your own SHELL !
-To know more about the project you can read the subject [here]()
+To know more about the project you can read the subject
+
 
 This is the first group project and one of the most hated project in the common core because of the infinite things that we should manage.
-I pared with [vharatyk]() who did the parsing and i, of course, did the executing.
+[I](https://github.com/KoganeShiro) pared with [vharatyk]() who did the parsing and i, of course, did the executing.
 So i won't be able to enter in the detail of the parsing.
 
 Some people may have choose the wrong teammate and end up doing the project alone.
@@ -30,6 +34,8 @@ From my understanding, the input line that the user will write in the minishell 
 You should be careful of the quote (single and double are different) and the environment variable (with the $ sign)
 
 
+#
+
 #### Executing
 Like i said, or like i wrote previously, the executing part is most likely pipex with bonus. You should change the behaviour of it to stick with the parsing of your teammate (hopefully you discuss with them about it)
 You should also take into account the exit_code of your command, if the command is not found or the execution isn't successful etc...
@@ -37,6 +43,8 @@ You should also take into account the exit_code of your command, if the command 
 If you manage to finish that, that's great but it's no the end.
 You should still manage signals and the execution of the builtins.
 
+
+#
 
 #### Signals
 We should handle ctr-\, ctrl-c and ctrl-d in the readline, the executing and the heredoc.
@@ -49,7 +57,19 @@ SIGQUIT, which terminate the process and generate a core dump by pressing Ctrl+\
 
 Ctrl+D signifies end-of-file (EOF) on the standard input stream and is typically used to indicate the end of input in a terminal.
 
-#### Builtins
+#
 
+#### Builtins
+You have to implement :
+	◦ echo with option -n
+	◦ cd with only a relative or absolute path
+	◦ pwd with no options
+	◦ export with no options
+	◦ unset with no options
+	◦ env with no options or arguments
+	◦ exit with no options
+
+#
 
 ## Quick Start
+

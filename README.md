@@ -1,5 +1,16 @@
 # 42_Cursus
 
+<<<<<<< HEAD
+### Table of Content
+- [The School](##the-school)
+- [All the projects of my 42 cursus](##all-the-projects-of-my-42-cursus)
+	- [Piscine](###piscine)
+	- [Common Core](###common-core)
+
+#
+
+=======
+>>>>>>> 53686ac84c8f5350fc5543d4d82e1d55c7c1faaf
 ## The School
 42 is a private, nonprofit and tuition-free computer programming school that was founded in France by Xavier Niel.
 The school is known for its unique and innovative approach to education, with a focus on project-based learning and peer-to-peer collaboration.
@@ -11,12 +22,20 @@ To clarify the incentive, successful project submissions not only contribute to 
 
 You can see how many days a project can give you on [42evaluators](https://42evaluators.com/calculator) a project made by 42 students for them. You can also see your rank in your school or even a map of student close to the blackhole to help them.
 
+<<<<<<< HEAD
+Here is how we can see our projects (called the Holy Graph):
+=======
 Here is how we can see our project:
+>>>>>>> 53686ac84c8f5350fc5543d4d82e1d55c7c1faaf
 ![image](https://github.com/KoganeShiro/42_Cursus/assets/126095786/634c90b1-48e2-412b-9c44-523ffd552c4a)
 
 We have a maximum of two years to navigate the common core, typically concluding in an average of one year.
 
+<<<<<<< HEAD
+Following the common core, students can choose from eight specialized branches. The common core is what are inside all the circles and all the branches outside of the circles are the specializations.
+=======
 Following the common core, students can choose from eight specialized branches. The common core is what inside all the circles and all the branches outside of it are the specializations
+>>>>>>> 53686ac84c8f5350fc5543d4d82e1d55c7c1faaf
 
 ## All the projects of my 42 cursus
 
@@ -24,6 +43,21 @@ Following the common core, students can choose from eight specialized branches. 
  - [My Piscine](https://github.com/KoganeShiro/42_Cursus/tree/main/42Piscine)
 
 ### Common Core
+<<<<<<< HEAD
+[Libft](https://github.com/KoganeShiro/42_Cursus/tree/main/libft42)
+[Printf](https://github.com/KoganeShiro/42_Cursus/tree/main/ft_printf42)
+[Born2Beroot](https://github.com/KoganeShiro/42_Cursus/tree/main/born2beroot42)
+[Get_Next_Line](https://github.com/KoganeShiro/42_Cursus/tree/main/get_next_line42)
+[Fract_ol](https://github.com/KoganeShiro/42_Cursus/tree/main/fract_ol42)
+[Push_Swap](https://github.com/KoganeShiro/42_Cursus/tree/main/push_swap42)
+[Minitalk](https://github.com/KoganeShiro/42_Cursus/tree/main/minitalk)
+[Pipex](https://github.com/KoganeShiro/42_Cursus/tree/main/pipex)
+[Minishell]()
+[Philosopher](https://github.com/KoganeShiro/42_Cursus/tree/main/philosophers42)
+
+
+[exam](https://github.com/KoganeShiro/42_Cursus/tree/main/exam42)
+=======
  - [Libft](https://github.com/KoganeShiro/42_Cursus/tree/main/libft42)
  - [Printf](https://github.com/KoganeShiro/42_Cursus/tree/main/ft_printf42)
  - [Born2Beroot](https://github.com/KoganeShiro/42_Cursus/tree/main/born2beroot42)
@@ -36,4 +70,5 @@ Following the common core, students can choose from eight specialized branches. 
  - [Philosopher]()
 
  - [exam](https://github.com/KoganeShiro/42_Cursus/tree/main/exam42)
+>>>>>>> 53686ac84c8f5350fc5543d4d82e1d55c7c1faaf
 
