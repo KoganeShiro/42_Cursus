@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_stacks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:50:34 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/23 15:12:30 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:53:39 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 int	init_stack_a(t_stack_node **a, char **av)
 {

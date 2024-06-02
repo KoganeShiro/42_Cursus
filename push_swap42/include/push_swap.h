@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:23:16 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/29 11:26:08 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 18:07:04 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_stack_node
 
 /* MAIN */
 int				main(int argc, char **argv);
-void			ft_sorting(t_stack_node **a, t_stack_node **b, int len);
 
 /* ALGO */
 void			do_actions(t_stack_node **a, t_stack_node **b);
@@ -46,6 +45,7 @@ int				set_price(t_stack_node *a);
 t_stack_node	*find_cheapest(t_stack_node *a);
 
 /* TINY_SORT */
+void			ft_sorting(t_stack_node **a, t_stack_node **b, int len);
 void			sort_for_three(t_stack_node **stack);
 void			mini_algo(t_stack_node **a, t_stack_node **b);
 t_stack_node	*find_max(t_stack_node **stack);

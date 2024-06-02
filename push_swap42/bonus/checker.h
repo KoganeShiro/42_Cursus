@@ -13,7 +13,7 @@
 #ifndef CHECKER_H
 # define CHECKER_H
 
-# include "../push_swap.h"
+# include "../include/push_swap.h"
 
 //t_stack_node	*init_check_stack(t_stack_node **a, char **av);
 int		init_check_stack(t_stack_node **a, char **av);

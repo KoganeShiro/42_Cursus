@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:48:03 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/29 16:54:38 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:52:37 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-/*
+/* NOT GOOD ! DOESN'T WORK
 ./checker argv
 
 argv = all the element in stack A

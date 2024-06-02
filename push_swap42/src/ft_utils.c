@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:36:49 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/23 14:59:56 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:53:32 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 int	ft_is_duplicate(char **av, int index)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:50:29 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/23 15:25:19 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:54:10 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 void	do_actions(t_stack_node **a, t_stack_node **b)
 {

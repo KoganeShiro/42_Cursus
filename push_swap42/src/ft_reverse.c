@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_reverse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:50:17 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/29 11:43:45 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:53:56 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 //The tail become the head in the stack A
 void	rra(t_stack_node **a, t_stack_node **cheapest, int check)

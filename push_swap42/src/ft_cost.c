@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cost.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:22:23 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/23 15:16:28 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:54:03 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 void	cost_to_top(t_stack_node **a, t_stack_node **target)
 {

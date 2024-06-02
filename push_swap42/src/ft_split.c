@@ -6,11 +6,11 @@
 /*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:22:55 by cejin             #+#    #+#             */
-/*   Updated: 2023/10/27 15:39:30 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 17:53:42 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 char	*ft_strdup(char *str)
 {

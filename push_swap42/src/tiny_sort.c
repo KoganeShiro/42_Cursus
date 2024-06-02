@@ -3,17 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   tiny_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cejin <cejin@student.42lehavre.fr>         +#+  +:+       +#+        */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:31:21 by cejin             #+#    #+#             */
-/*   Updated: 2024/01/23 15:09:48 by cejin            ###   ########.fr       */
+/*   Updated: 2024/06/02 18:07:38 by cejin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
-/*tiny_sort for three element
-! max number on bottom */
+void	ft_sorting(t_stack_node **a, t_stack_node **b, int len)
+{
+	if (len <= 4)
+		sort_for_three(a);
+	else if (len <= 6)
+		mini_algo(a, b);
+	else
+		push_swap(a, b);
+}
+
 void	sort_for_three(t_stack_node **stack)
 {
 	t_stack_node	*max;
