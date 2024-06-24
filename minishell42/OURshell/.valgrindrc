@@ -1,0 +1,5 @@
+--keep-debuginfo=yes
+--leak-check=full
+--show-leak-kinds=all
+--track-fds=yes
+--suppressions=rl.supp
