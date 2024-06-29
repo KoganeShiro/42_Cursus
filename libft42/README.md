@@ -2,9 +2,9 @@
 
 ### Table of Content
 - [Libft](#libft)
-    - [What are libraries for ?](###what-are-library-for)
-    - [Overview](###overview)
-    - [Quick Start](###quick-start)
+    - [What are libraries for ?](#what-are-library-for)
+    - [Overview](#overview)
+    - [Quick Start](#quick-start)
 
 #
 

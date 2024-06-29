@@ -1,6 +1,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdio.h>
 
 int	ft_error(char *str)
 {
@@ -30,9 +31,9 @@ int exec(char **argv, int i, char **env)
     int status;
     int has_pipe = argv[i] && !strcmp(argv[i], "|");
 
-    if (!has_pipe && !strcmp(*argv, "cd"))
+    if (!strcmp(*argv, "cd"))
         return (ft_cd(argv, i));
-    if (has_pipe && pipe(fd) == -1)
+    if (pipe(fd) == -1)
         return (ft_error("error: fatal\n"));
     int pid = fork();
     if (pid == 0)
@@ -51,7 +52,7 @@ int exec(char **argv, int i, char **env)
     if (has_pipe && (dup2(fd[0], 0) == -1
 			|| close(fd[0]) == -1 || close(fd[1]) == -1))
         return (ft_error("error: fatal\n"));
-    return (WIFEXITED(status) && WEXITSTATUS(status));
+    return (0);
 }
 
 int main(int argc, char **argv, char **env)

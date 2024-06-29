@@ -2,8 +2,8 @@
 
 ### Table of Content
 - [Push_Swap](#push_swap)
-    - [Overview](###overview)
-    - [Quick Start](###quick-start)
+    - [Overview](#overview)
+    - [Quick Start](#quick-start)
 
 #
 
@@ -23,5 +23,5 @@ https://github.com/KoganeShiro/42_Cursus/assets/126095786/297df8df-e7e2-40a7-ba8
 ### Quick Start
 You have to compile the files using `make`
 
-The bonu part doesn't work
+The bonus part doesn't work
 

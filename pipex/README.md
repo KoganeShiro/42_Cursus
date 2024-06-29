@@ -2,8 +2,8 @@
 
 ### Table of Content
 - [Pipex](#pipex)
-    - [Overview](###overview)
-    - [Quick Start](###quick-start)
+    - [Overview](#overview)
+    - [Quick Start](#quick-start)
 
 #
 

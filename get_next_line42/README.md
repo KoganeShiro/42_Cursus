@@ -2,8 +2,8 @@
 
 ### Table of Content
 - [Get_Next_Line](#get_next_line)
-    - [Overview](###overview)
-    - [Quick Start](###quick-start)
+    - [Overview](#overview)
+    - [Quick Start](#quick-start)
 
 #
 

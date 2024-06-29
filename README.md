@@ -2,10 +2,10 @@
 
 
 ### Table of Content
-- [The School](##the-school)
-- [All the projects of my 42 cursus](##all-the-projects-of-my-42-cursus)
-	- [Piscine](###piscine)
-	- [Common Core](###common-core)
+- [The School](#the-school)
+- [All the projects of my 42 cursus](#all-the-projects-of-my-42-cursus)
+	- [Piscine](#piscine)
+	- [Common Core](#common-core)
 
 
 ## The School

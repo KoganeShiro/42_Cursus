@@ -2,8 +2,8 @@
 
 ### Table of Content
 - [Ft_printf](#ft_printf)
-    - [Overview](###overview)
-    - [Quick Start](###quick-start)
+    - [Overview](#overview)
+    - [Quick Start](#quick-start)
 
 #
 

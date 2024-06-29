@@ -99,3 +99,4 @@ For exemple `export` because the add of a new environment variable in the env wo
 
 git clone the repo and go to the OURshell directory. You can make or use the executable like that `./minishell`
 Then you can test writing input !
+
