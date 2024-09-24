@@ -14,7 +14,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = 
+SRCS = main.cpp contact.cpp phoneBook.cpp
 
 OBJ_PATH = obj/
 OBJS += $(addprefix $(OBJ_PATH), $(SRCS:.cpp=.o))

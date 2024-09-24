@@ -10,11 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
-#include "contact.hpp"
+#include "phoneBook.hpp"
 
 int main(void)
 {
-    //use the input of the user to make 3 actions
-    //add, search, exit
+	std::string	cmd;
+	PhoneBook	phoneBook;
+
+	std::cout << "Welcome to your Phone Book ☎️!"<< std::endl;
+	while (1)
+	{
+		std::cout << "To navigate, type (ADD, SEARCH or EXIT): ";
+		std::cin >> cmd;
+		if (cmd == "ADD") {
+			phoneBook.add_contact();
+		}
+		else if (cmd == "SEARCH") {
+			phoneBook.search_contact();
+		}
+		else if (cmd == "EXIT") {
+			phoneBook.exit_phone();
+			break ;
+		}
+		else {
+			std::cout << "PLS 🥲, type only ADD, SEARCH or EXIT" << std::endl << std::endl;
+		}
+	}
 }

@@ -32,7 +32,6 @@ ${NAME}: ${OBJS}
 
 
 ${OBJ_PATH}%.o: %.cpp
-			mkdir -p $(dir $@)
 			${CC} ${CFLAGS} -c $< -o $@
 
 clean:

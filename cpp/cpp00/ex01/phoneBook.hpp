@@ -11,25 +11,28 @@
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+# define PHONEBOOK_HPP
+
+# include <iostream>
+# include <cctype>
+# include <iomanip>
+# include "contact.hpp"
 
 class PhoneBook
 {
 private:
-	Contact _contact[8];
+	Contact	_contacts[8];
+	int		_contact_count;
+	int		_overflow_flag;
 
 public:
 	PhoneBook();
 	~PhoneBook();
 	
 	void	add_contact(void);
-	//display saved contact in 4 columns:
-	//index, first name, last name and nickname (10 char max)
-	//a pipe separate the columns, if char > 10 last char is .
-	//user input the index, show all info line by line
-	void	search_contact(void);
-	void	print_contact(void);
-	void	exit_phone(void);
-}
+	void	search_contact(void) const;
+	void	print_contact_list(void) const;
+	void	exit_phone(void) const;
+};
 
 #endif
