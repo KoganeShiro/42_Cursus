@@ -5,21 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: cejin <cejin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/23 13:40:09 by cejin             #+#    #+#              #
-#    Updated: 2024/09/23 16:12:20 by cejin            ###   ########.fr        #
+#    Created: 2024/09/25 18:08:16 by cejin             #+#    #+#              #
+#    Updated: 2024/09/25 18:08:45 by cejin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -g -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp Contact.cpp PhoneBook.cpp
+SRCS = 
 
 OBJ_PATH = obj/
 OBJS += $(addprefix $(OBJ_PATH), $(SRCS:.cpp=.o))
 
-NAME = phonebook
+NAME = 
 
 all: $(OBJ_PATH) $(NAME)
 
@@ -32,8 +31,7 @@ ${NAME}: ${OBJS}
 
 
 ${OBJ_PATH}%.o: %.cpp
-			mkdir -p $(dir $@)
-			${CC} ${CFLAGS} -c $< -o $@ -Iincludes
+			${CC} ${CFLAGS} -c $< -o $@
 
 clean:
 			rm -f ${OBJS}

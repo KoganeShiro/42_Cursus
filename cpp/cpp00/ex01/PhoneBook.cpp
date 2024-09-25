@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phoneBook.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook()
 {
@@ -29,34 +29,62 @@ void PhoneBook::add_contact(void)
 		_contact_count = 0;
 		_overflow_flag = 1;
 	}
-	std::cout << "Enter First Name: ";
-	std::cin >> input;
-	_contacts[_contact_count].setFirstName(input);
-
-	std::cout << "Enter Last Name: ";
-	std::cin >> input;
-	_contacts[_contact_count].setLastName(input);
-
-	std::cout << "Enter Nickname: ";
-	std::cin >> input;
-	_contacts[_contact_count].setNickname(input);
-
-	std::cout << "Enter Phone Number: ";
-	std::cin >> input;
-	_contacts[_contact_count].setPhoneNumber(input);
-
-	std::cout << "Enter Darkest Secret: ";
-	std::cin >> input;
-	_contacts[_contact_count].setDarkestSecret(input);
+	while (1) {
+		std::cout << "Enter First Name: ";
+		if (std::getline(std::cin, input) && !input.empty()) {
+			_contacts[_contact_count].setFirstName(input);
+			break;
+		}
+		else
+			continue;
+	}
+	while (1) {
+		std::cout << "Enter Last Name: ";
+		if (std::getline(std::cin, input) && !input.empty()) {
+			_contacts[_contact_count].setLastName(input);
+			break;
+		}
+		else
+			continue;
+	}
+	while (1) {
+		std::cout << "Enter Nickname: ";
+		if (std::getline(std::cin, input) && !input.empty()) {
+			_contacts[_contact_count].setNickname(input);
+			break;
+		}
+		else
+			continue;
+	}
+	while (1) {
+		std::cout << "Enter Phone Number: ";
+		if (std::getline(std::cin, input) && !input.empty()) {
+			_contacts[_contact_count].setPhoneNumber(input);
+			break;
+		}
+		else
+			continue;
+	}
+	while (1) {
+		std::cout << "Enter Darkest Secret: ";
+		if (std::getline(std::cin, input) && !input.empty()) {
+			_contacts[_contact_count].setDarkestSecret(input);
+			break;
+		}
+		else
+			continue;
+	}
 
 	_contact_count++;
 	std::cout << "Contact added successfully!" << std::endl;
+	std::cout << std::endl;
 	return ;
 }
 
 void	PhoneBook::search_contact(void) const
 {
-	int	index;
+	std::string	index;
+	int			intdex;
 
 	if (_contact_count == 0)
 	{
@@ -65,20 +93,15 @@ void	PhoneBook::search_contact(void) const
 	}
 	print_contact_list();
 	std::cout << "Type the index of the contact you want to view: ";
-	std::cin >> index;
-	if (index < _contact_count && index >= 0) {
-		_contacts[index].print_contact(index);
-	}
-	else if (std::cin.fail()) {
-		std::cout << std::endl;
-		std::cin.clear();
-		std::cin.ignore();
-		std::cout << "Invalid input. Please enter a valid number 😠. Try again from start 😤." << std::endl;
+	std::getline(std::cin, index);
+	intdex = atoi(index.c_str());
+	if (index.length() == 1 && index[0] >= '0' && index[0] <= '7') {
+		_contacts[intdex].print_contact(intdex);
 	}
 	else {
-		std::cout << "Invalid index, try again from start" << std::endl;
+		std::cout << "Please enter a valid number 😠. Try again from start 🙃" << std::endl;
 	}
-	return ;
+	std::cout << std::endl;
 }
 
 void	PhoneBook::print_contact_list(void) const
