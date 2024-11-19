@@ -5,21 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: cejin <cejin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/25 18:08:18 by cejin             #+#    #+#              #
-#    Updated: 2024/09/25 18:08:42 by cejin            ###   ########.fr        #
+#    Created: 2024/11/15 15:26:42 by cejin             #+#    #+#              #
+#    Updated: 2024/11/15 17:17:02 by cejin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = 
+SRCS =	main.cpp \
+		newZombie.cpp \
+		randomChump.cpp \
+		Zombie.cpp
 
 OBJ_PATH = obj/
 OBJS += $(addprefix $(OBJ_PATH), $(SRCS:.cpp=.o))
 
-NAME = 
+NAME = Zombie
 
 all: $(OBJ_PATH) $(NAME)
 
@@ -29,7 +31,7 @@ ${OBJ_PATH}:
 
 ${NAME}: ${OBJS}
 			${CC} ${CFLAGS} -o $@ $^
-
+	@echo "\r\033[K\033[38;2;0;170;0;1mSuccessfully compiled to \033[38;2;255;145;5;3m./$(NAME)\033[0m\033[38;2;0;170;0;1m!\033[0m"
 
 ${OBJ_PATH}%.o: %.cpp
 			${CC} ${CFLAGS} -c $< -o $@
