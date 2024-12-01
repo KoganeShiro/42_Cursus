@@ -32,23 +32,37 @@ std::string Warlock::getTitle() const
 	return (this->title);
 }
 
+void	Warlock::learnSpell(ASpell *spell)
+{
+    this->library[spell->getName()] = spell;
+}
 
+void	Warlock::forgetSpell(std::string spellName)
+{
+    this->library.erase(spellName);
+}
+
+void	Warlock::launchSpell(std::string spellName, ATarget const &target)
+{
+    if (this->library.find(spellName) != this->library.end()) {
+        target.getHitBySpell(*this->library[spellName]);
+    }
+}
 
 /*
 int main()
 {
-  Warlock const richard("Richard", "Mistress of Magma");
+  Warlock richard("Richard", "the Titled");
+
+  Dummy bob;
+  Fwoosh* fwoosh = new Fwoosh();
+
+  richard.learnSpell(fwoosh);
+
   richard.introduce();
-  std::cout << richard.getName() << " - " << richard.getTitle() << std::endl;
+  richard.launchSpell("Fwoosh", bob);
 
-  Warlock* jack = new Warlock("Jack", "the Long");
-  jack->introduce();
-  jack->setTitle("the Mighty");
-  jack->introduce();
-
-  delete jack;
-
-  return (0);
+  richard.forgetSpell("Fwoosh");
+  richard.launchSpell("Fwoosh", bob);
 }
 */
-

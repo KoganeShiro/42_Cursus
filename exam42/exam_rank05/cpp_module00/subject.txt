@@ -1,4 +1,4 @@
-~Assignment name  : cpp_module00
+Assignment name  : cpp_module00
 Expected files   : Warlock.cpp Warlock.hpp
 --------------------------------------------------------------------------------
 
@@ -17,10 +17,7 @@ Both these functions will have to be callable on a constant Warlock.
 Create the following setter: 
 * setTitle, returns void and takes a reference to constant string
 
-Your Warlock will also have, in addition to whatever's required by Coplien's
-form, a constructor that takes, in this order, its name and title. Your Warlock
-will not be able to be copied, instantiated by copy, or instantiated without a
-name and a title.
+Your Warlock will also have, in addition to whatever's required by Coplien's form, a constructor that takes, in this order, its name and title. Your Warlock will not be able to be copied, instantiated by copy, or instantiated without a name and a title.
 
 For example :
 
@@ -34,15 +31,13 @@ Upon creation, the Warlock says :
 
 <NAME>: This looks like another boring day.
 
-Of course, whenever we use placeholders like <NAME>, <TITLE>, etc...
-in outputs, you will replace them by the appropriate value. Without the < and >.
+Of course, whenever we use placeholders like <NAME>, <TITLE>, etc... in outputs, you will replace them by the appropriate value. Without the < and >.
 
 When he dies, he says:
 
 <NAME>: My job here is done!
 
-Our Warlock must also be able to introduce himself, while boasting with all its
-might.
+Our Warlock must also be able to introduce himself, while boasting with all its might.
 
 So you will write the following function:
 * void introduce() const;
