@@ -1,4 +1,4 @@
-# 42_Cursus
+# 42_Cursus Exams
 
 Some students create a programme called [grademe](https://grademe.fr/) in order for us, students to do mock exams.
 

@@ -34,7 +34,7 @@ std::string Warlock::getTitle() const
 
 void	Warlock::learnSpell(ASpell *spell)
 {
-    this->library[spell->getName()] = spell;
+    this->library[spell->getName()] = spell->clone();
 }
 
 void	Warlock::forgetSpell(std::string spellName)
