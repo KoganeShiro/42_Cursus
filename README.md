@@ -23,7 +23,7 @@ You can see how many days a project can give you on [42evaluators](https://42eva
 Here is how we can see our projects (called the Holy Graph):
 ![image](https://github.com/KoganeShiro/42_Cursus/assets/126095786/634c90b1-48e2-412b-9c44-523ffd552c4a)
 
-We have a maximum of two years to navigate the common core, typically concluding in an average of one year.
+We have a maximum of two years to navigate the common core, typically concluding in an average of one year to 15 months.
 
 
 Following the common core, students can choose from eight specialized branches. The common core is what are inside all the circles and all the branches outside of the circles are the specializations.
@@ -53,11 +53,21 @@ Following the common core, students can choose from eight specialized branches. 
 
 [Pipex](https://github.com/KoganeShiro/42_Cursus/tree/main/pipex)
 
-[Minishell]()
+[Minishell](https://github.com/KoganeShiro/42_Cursus/tree/main/minishell42)
 
 [Philosopher](https://github.com/KoganeShiro/42_Cursus/tree/main/philosophers42)
 
+[NetPractice](https://github.com/KoganeShiro/42_Cursus/tree/main/net_practice42)
 
+[MiniRT](https://github.com/KoganeShiro/42_Cursus/tree/main/miniRT42)
+
+[CPP modules](https://github.com/KoganeShiro/42_Cursus/tree/main/cpp42)
+
+[Inception](
+
+[WebServ]
+
+[Transcendance]
 
 [exam](https://github.com/KoganeShiro/42_Cursus/tree/main/exam42)
 
