@@ -9,7 +9,9 @@
 
 ## The project
 miniRT42 is a mini raytracer developed in C, using the minilibX library.
+It is a group project and i pared with [echapuis](https://github.com/Asa973) who did most of the math behind 🤣
 
+TL;DR:
 The principle is to simulate the behavior of light by casting virtual rays to determine the color of each pixel in the rendered image.
 
 ![image](https://github.com/user-attachments/assets/e451036e-c45b-41d8-9cb8-3261a9a671da)
@@ -58,7 +60,25 @@ To run the raytracer, use the following command:
 
 
 ## Ressources
-(We didn't use all of these)
+We didn't use all of these but the main points if you want to do it would be
+- Have some basic knowledge of vector and high school math
+- Know what is a viewport or viewplane (vs canva) and how to calculate it
+- Each ray will give you a specific color on the canva
+- To know the color, we have to calculate if we ever hit something
+- We have mathematical equation to know this, you can check this website: https://hugi.scene.org/online/hugi24/coding%20graphics%20chris%20dragan%20raytracing%20shapes.htm you only have to implement this
+- If there is an intersection (a hit) between the ray and the object, you have to determine which one is the closest to the viewport (the result of the equation (root(s)) will give you the distance between the object hit and the origine of the ray
+- Compare the distance of all the object in the scene to know which color to show
+- Know that you know the basic color, you have to calculate the light of the color
+- For that you have to add the light intensity (L) + the ambient light (A) + the color of the nearest object
+- Of course if no object is hit, you only hav to return the background color
+- You now have the final color of the pixel !
+- Loop on all the pixels to have the final image
+
+Tips:
+ - Start by having the outline of the sphere without the light, when you have it, you can add the light and continue with the plane and the cylinder.
+ - Know that the plane is infinite
+ - The cylinder may be infinite, that's why you need to clamp the height of the cylinder
+ - Also the cylinder will be a hollow cylinder. If you want, you can cap the cylinder with planes.
 
 [An Introduction to Ray Tracing In C](https://www.jakobmaier.at/posts/raytracing/#top)
 
