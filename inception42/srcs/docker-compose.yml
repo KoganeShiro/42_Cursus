@@ -1,0 +1,94 @@
+
+services:  
+  nginx:
+    container_name: nginx  # name of the container
+    build:
+      context: requirements/nginx  # path to the directory containing the Dockerfile
+      dockerfile: Dockerfile  # name of the Dockerfile
+    image: nginx:latest
+    env_file: .env  # specify the environment file for passing variables
+    restart: on-failure  # restart the container on failure
+    depends_on:
+      wordpress:  # specify the dependency on the WordPress service  
+        condition: service_healthy  # start the service only if the dependency is healthy 
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception  # specify the network for the container
+    ports:
+      - "443:443"  # expose the Nginx port on https locally
+    healthcheck:
+      test: ["CMD", "curl" ,"-fk", "https://localhost/"]  # specify the command for the health check
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  # Service for the database MariaDB
+  mariadb:    
+    container_name: mariadb  # name of the container
+    build:
+      context: requirements/mariadb  # path to the directory containing the Dockerfile
+      dockerfile: Dockerfile  # name of the Dockerfile
+    image: mariadb:latest
+    env_file: .env  # specify the environment file for passing variables
+    volumes:
+      - mariadb:/var/lib/mysql  # persistent storage for MariaDB data
+    restart: on-failure  # restart the container unless it is stopped
+    networks:
+      - inception  # specify the network for the container
+    expose:
+      - "3306"  # expose the MariaDB port
+    healthcheck:
+      #test: ["CMD", "/create_database_and_start_mariadb.sh"]  # specify the command for the health check
+      test: ["CMD", "ls"]  # specify the command for the health check
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s  
+
+
+  # Service for the database WordPress
+  wordpress:    
+    container_name: wordpress  # name of the container
+    build:
+      context: requirements/wordpress  # path to the directory containing the Dockerfile
+      dockerfile: Dockerfile  # name of the Dockerfile
+    image: wordpress:latest
+    env_file: .env  # specify the environment file for passing variables
+    volumes:
+      - wordpress:/var/www/wordpress  # persistent storage for WordPress data
+    depends_on:
+      mariadb:  # specify the dependency on the MariaDB service
+        condition: service_healthy  # start the service only if the dependency is healthy
+    restart: on-failure
+    networks:
+      - inception  # specify the network for the container
+    expose:
+      - "9000"  # expose the MariaDB port
+    healthcheck:
+      test: ["CMD", "test", "-f", "/var/www/wordpress/wp_config_ok"]  # specify the command for the health check
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+# Define a named volume for the database
+volumes:
+  wordpress:
+    driver: local # specify the driver for the volume 
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/cejin/data/wordpress'  # Ou stocker le dossier sur votre ordinateur en local
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none' 
+      o: 'bind'
+      device: '/home/cejin/data/mariadb'  # Ou stocker le dossier sur votre ordinateur en local
+
+# Define custom networks
+networks:
+  inception:
+    driver: bridge  # use the default bridge network driver

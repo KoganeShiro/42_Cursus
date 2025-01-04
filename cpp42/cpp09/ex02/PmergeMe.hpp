@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PmergeMe.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/28 11:00:37 by cejin             #+#    #+#             */
+/*   Updated: 2024/12/28 11:28:52 by cejin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include <string>
@@ -61,6 +73,7 @@ T parseInputNumbers(int argc, char **argv)
         }
         container.push_back(static_cast<int>(value));
     }
+    //std::cout << container.size() << std::endl;
     return (container);
 }
 
@@ -75,17 +88,17 @@ private:
             end            end
     */
     template<class T>
-    static void	sortPairs(T& container, std::size_t size)
+    static void	sortPairs(T& container, std::size_t segmentSize)
     {
-        std::size_t pair_size = 2 * size;
-        for (size_t i = 0 ; pair_size + i <= container.size() ; i += pair_size) {
-            std::size_t first_segment_end = i + size - 1;
-            std::size_t second_segment_end = i + pair_size - 1;
+        std::size_t pairSize = 2 * segmentSize;
+        for (size_t i = 0 ; pairSize + i <= container.size() ; i += pairSize) {
+            std::size_t firstSegmentEnd = i + segmentSize - 1;
+            std::size_t secondSegmentEnd = i + pairSize - 1;
 
-            if (container[first_segment_end] > container[second_segment_end]) {
+            if (container[firstSegmentEnd] > container[secondSegmentEnd]) {
                 std::swap_ranges(container.begin() + i,
-                                container.begin() + i + size,
-                                container.begin() + i + size);
+                                container.begin() + i + segmentSize,
+                                container.begin() + i + segmentSize);
             }
         }
     }
@@ -117,19 +130,29 @@ private:
 
     template<class T>
     static void insertSegment(T& sorted_container, 
+                            T& main_container,
                             typename T::iterator it, 
                             size_t size,
                             typename T::iterator end)
     {
         if (it + size <= end) {
-            size_t pos = binarySearch(sorted_container, *it, 0, sorted_container.size());
-            sorted_container.insert(sorted_container.begin() + pos, it, it + size);
+            T segment;
+            for (size_t i = 0; i < size && (it + i) != end; ++i) {
+                segment.push_back(*(it + i));
+            }
+            
+            for (typename T::iterator seg_it = segment.begin(); seg_it != segment.end(); ++seg_it) {
+                size_t pos = binarySearch(sorted_container, *seg_it, 0, sorted_container.size());
+                sorted_container.insert(sorted_container.begin() + pos, *seg_it);
+            }
+            
+            main_container.erase(it, it + size);
         }
     }
 
     template<class T>
     static void insertNonJacobsthalElements(T& sorted_container, 
-                                        T& container,
+                                        T& main_container,
                                         size_t num_pairs,
                                         size_t jacob_idx,
                                         size_t size)
@@ -142,16 +165,18 @@ private:
                     break;
                 }
             }
-            if (!already_inserted) {
-                typename T::iterator insert_it = container.begin() + (i * size);
-                insertSegment(sorted_container, insert_it, size, container.end());
+            if (!already_inserted && i * size < main_container.size()) {
+                typename T::iterator insert_it = main_container.begin() + (i * size);
+                insertSegment(sorted_container, main_container, insert_it, size, main_container.end());
             }
         }
 
-        typename T::iterator it = container.begin() + (num_pairs + 1) * size;
-        if (it != container.end()) {
+        // Process any remaining elements in main_container
+        while (!main_container.empty()) {
+            typename T::iterator it = main_container.begin();
             size_t pos = binarySearch(sorted_container, *it, 0, sorted_container.size());
-            sorted_container.insert(sorted_container.begin() + pos, it, container.end());
+            sorted_container.insert(sorted_container.begin() + pos, *it);
+            main_container.erase(it);
         }
     }
 
@@ -160,11 +185,13 @@ private:
     {
         if (container.size() < size * 3 || size == 1) {
             T sorted_container;
-            typename T::iterator it = container.begin();
-
-            if (it + size <= container.end()) {
+            T main_container = container;
+            
+            typename T::iterator it = main_container.begin();
+            if (it + size <= main_container.end()) {
+                // Insert initial segment
                 sorted_container.insert(sorted_container.begin(), it, it + size);
-                it += size;
+                main_container.erase(it, it + size);
 
                 size_t num_pairs = (container.size() - size) / size;
                 size_t jacob_idx = 0;
@@ -173,13 +200,22 @@ private:
                     size_t insert_pos = JACOBSTHAL_SEQUENCE[jacob_idx];
                     if (insert_pos > num_pairs) break;
 
-                    typename T::iterator insert_it = container.begin() + (insert_pos * size);
-                    insertSegment(sorted_container, insert_it, size, container.end());
+                    if (insert_pos * size < main_container.size()) {
+                        typename T::iterator insert_it = main_container.begin() + (insert_pos * size);
+                        insertSegment(sorted_container, main_container, insert_it, size, main_container.end());
+                    }
                     jacob_idx = getNextJacobsthalIndex(jacob_idx, num_pairs);
                 }
 
-                insertNonJacobsthalElements(sorted_container, container, num_pairs, jacob_idx, size);
+                insertNonJacobsthalElements(sorted_container, main_container, num_pairs, jacob_idx, size);
 
+                // Verify all elements are processed
+                if (!main_container.empty()) {
+                    for (typename T::iterator it = main_container.begin(); it != main_container.end(); ++it) {
+                        size_t pos = binarySearch(sorted_container, *it, 0, sorted_container.size());
+                        sorted_container.insert(sorted_container.begin() + pos, *it);
+                    }
+                }
                 container = sorted_container;
             }
         }

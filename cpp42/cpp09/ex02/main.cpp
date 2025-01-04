@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cejin <cejin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/28 11:00:21 by cejin             #+#    #+#             */
+/*   Updated: 2024/12/28 11:44:12 by cejin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
@@ -10,28 +21,37 @@ int main(int argc, char** argv)
             std::endl; 
             return (0);
         }
-        std::deque<int>	numbers;
-        numbers = parseInputNumbers<std::deque<int> >(argc, argv);
+        std::deque<int>	deque;
+        deque = parseInputNumbers<std::deque<int> >(argc, argv);
 
-        //std::vector<int> numbers;
-        //numbers = parseInputNumbers<std::vector<int> >(argc, argv);
+        std::vector<int> vector;
+        vector = parseInputNumbers<std::vector<int> >(argc, argv);
 
         std::cout <<
             "====Container====" <<
         std::endl;
         std::cout << "Before: ";
-        printContainer(numbers);
+        printContainer(vector);
 
-        Timer timer;
-        PmergeMe::mergeInsertionSort(numbers, 1);
-        double elapsed = timer.getElapsedMicroseconds();
+        Timer timerV;
+        PmergeMe::mergeInsertionSort(vector, 1);
+        double elapsedVector = timerV.getElapsedMicroseconds();
+
+        Timer timerD;
+        PmergeMe::mergeInsertionSort(deque, 1);
+        double elapsedDeque = timerD.getElapsedMicroseconds();
+
 
         std::cout << "After: ";
-        printContainer(numbers);
+        printContainer(vector);
         
         std::cout <<
-            "Time to process " << numbers.size() 
-            << " elements: " << elapsed << " us"
+            "Time to process " << vector.size() 
+            << " vector elements: " << elapsedVector << " us"
+        << std::endl;
+        std::cout <<
+            "Time to process " << deque.size() 
+            << " deque elements: " << elapsedDeque << " us"
         << std::endl;
 
         return (0);
