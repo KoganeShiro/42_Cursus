@@ -31,7 +31,7 @@ Following the common core, students can choose from eight specialized branches. 
 ## All the projects of my 42 cursus
 
 ### Piscine
- - [My Piscine](https://github.com/KoganeShiro/42_Cursus/tree/main/42Piscine)
+La Picsine is the admission process
 
 #
 
@@ -63,11 +63,10 @@ Following the common core, students can choose from eight specialized branches. 
 
 [CPP modules](https://github.com/KoganeShiro/42_Cursus/tree/main/cpp42)
 
-[Inception](
+[Inception](https://github.com/KoganeShiro/42_Cursus/tree/main/inception42)
 
-[WebServ]
+[WebServ](https://github.com/KoganeShiro/Webserv/tree/28040039f441f07a7754432e6ad31f354330c51d)
 
-[Transcendance]
+[Transcendance](https://github.com/KoganeShiro/ft_transcendence/tree/7f3788a1ef27256b195be897b23879896a10c512)
 
-[exam](https://github.com/KoganeShiro/42_Cursus/tree/main/exam42)
 
